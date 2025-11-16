@@ -156,7 +156,7 @@ Marketplace moderno para venda de produtos digitais. Sistema de planos premium f
    - Basta configurar variáveis de ambiente
 
 3. **Demo Site Ao Vivo**
-   - 🌐 **https://delightful-pegasus-8fe358.netlify.app/**
+   - 🌐 **https://bytemarketapp.netlify.app/**
    - Teste todas as funcionalidades
    - Veja o sistema de planos funcionando
    - Login/registro funcionando
