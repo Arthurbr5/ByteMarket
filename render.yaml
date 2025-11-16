@@ -1,15 +1,10 @@
 services:
-  # Static Site (Frontend Only - Grátis)
+  # Backend API (Node.js + Mercado Pago)
   - type: web
-    name: bytemarket
-    runtime: static
-    buildCommand: ""
-    staticPublishPath: .
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: public, max-age=3600
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    name: bytemarket-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server-mercadopago.js
+    envVars:
+      - key: NODE_ENV
+        value: production
