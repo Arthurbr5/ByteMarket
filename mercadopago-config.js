@@ -42,7 +42,7 @@ class MercadoPagoIntegration {
 
         try {
             // Envia pro backend criar a preferência
-            const response = await fetch('/api/mercadopago/create-preference', {
+            const response = await fetch('https://bytemarket-a4t8.onrender.com/api/mercadopago/create-preference', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ class MercadoPagoIntegration {
     // Cria pagamento único (para vendas de produtos)
     async createProductPayment(productId, productTitle, price) {
         try {
-            const response = await fetch('/api/mercadopago/create-payment', {
+            const response = await fetch('https://bytemarket-a4t8.onrender.com/api/mercadopago/create-payment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,7 +128,7 @@ class MercadoPagoIntegration {
     async updateUserPlan() {
         // Verifica com o backend qual plano foi pago
         try {
-            const response = await fetch('/api/mercadopago/verify-payment', {
+            const response = await fetch('https://bytemarket-a4t8.onrender.com/api/mercadopago/verify-payment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

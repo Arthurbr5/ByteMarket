@@ -233,6 +233,7 @@
     <script src="auth-simple.js"></script>
     <script src="app.js"></script>
     <script src="plans.js"></script>
+    <script src="mercadopago-config.js"></script>
     <script src="script.js"></script>
     <script>
         // Atualizar botões de assinatura
@@ -242,7 +243,7 @@
             const btn = card.querySelector('.btn-primary');
             
             if (btn && planId !== 'free') {
-                btn.onclick = (e) => {
+                btn.onclick = async (e) => {
                     e.preventDefault();
                     
                     if (!app.isLoggedIn()) {
@@ -258,13 +259,16 @@
                         return;
                     }
 
-                    // Simular pagamento
-                    if (confirm(`Confirmar assinatura do plano ${planSystem.plans[planId].name} por R$ ${planSystem.plans[planId].price.toFixed(2)}/mês?`)) {
-                        if (planSystem.subscribePlan(planId)) {
-                            setTimeout(() => {
-                                window.location.href = 'painel.html';
-                            }, 2000);
-                        }
+                    // Redirecionar para checkout do Mercado Pago
+                    btn.disabled = true;
+                    btn.textContent = 'Processando...';
+                    
+                    try {
+                        await mercadoPagoIntegration.createSubscription(planId);
+                    } catch (error) {
+                        btn.disabled = false;
+                        btn.textContent = 'Assinar Agora';
+                        showMessage('Erro ao processar pagamento. Tente novamente.', 'error');
                     }
                 };
             }
