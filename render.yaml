@@ -2,7 +2,7 @@ services:
   # Static Site (Frontend Only - Grátis)
   - type: web
     name: bytemarket
-    env: static
+    runtime: static
     buildCommand: ""
     staticPublishPath: .
     headers:
