@@ -1,4 +1,15 @@
-# ByteMarket - Render Deployment
-
-build: npm install
-start: npm start
+services:
+  # Static Site (Frontend Only - Grátis)
+  - type: web
+    name: bytemarket
+    env: static
+    buildCommand: ""
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
