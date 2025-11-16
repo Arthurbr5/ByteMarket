@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Cupons - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="coupons-section">
+        <div class="container">
+            <div class="coupons-header">
+                <div>
+                    <h2>Gerenciar Cupons</h2>
+                    <p>Crie e gerencie cupons de desconto para seus produtos</p>
+                </div>
+                <button class="btn btn-primary" onclick="openCreateModal()">+ Criar Novo Cupom</button>
+            </div>
+
+            <div class="coupons-stats">
+                <div class="stat-card">
+                    <span class="stat-icon">🎫</span>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Cupons Ativos</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">💰</span>
+                    <div class="stat-info">
+                        <h3>R$ 8.450</h3>
+                        <p>Economia Total</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📊</span>
+                    <div class="stat-info">
+                        <h3>347</h3>
+                        <p>Usos este Mês</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🎯</span>
+                    <div class="stat-info">
+                        <h3>68%</h3>
+                        <p>Taxa de Conversão</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coupons-filters">
+                <button class="coupon-filter active" onclick="filterCoupons('all')">Todos</button>
+                <button class="coupon-filter" onclick="filterCoupons('active')">Ativos</button>
+                <button class="coupon-filter" onclick="filterCoupons('expired')">Expirados</button>
+                <button class="coupon-filter" onclick="filterCoupons('scheduled')">Agendados</button>
+            </div>
+
+            <div class="coupons-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Tipo</th>
+                            <th>Desconto</th>
+                            <th>Usado</th>
+                            <th>Validade</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-status="active">
+                            <td>
+                                <div class="coupon-code-cell">
+                                    <strong>BEMVINDO10</strong>
+                                    <span class="coupon-description">Cupom de boas-vindas</span>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-info">Percentual</span></td>
+                            <td><strong>10%</strong></td>
+                            <td>
+                                <div class="usage-info">
+                                    <span>87/500</span>
+                                    <div class="usage-bar">
+                                        <div class="usage-fill" style="width: 17%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>31/12/2025</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon-small" onclick="editCoupon(1)" title="Editar">✏️</button>
+                                    <button class="btn-icon-small" onclick="copyCoupon(1)" title="Copiar">📋</button>
+                                    <button class="btn-icon-small" onclick="toggleCoupon(1)" title="Desativar">⏸️</button>
+                                    <button class="btn-icon-small" onclick="deleteCoupon(1)" title="Excluir">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr data-status="active">
+                            <td>
+                                <div class="coupon-code-cell">
+                                    <strong>PROMO20</strong>
+                                    <span class="coupon-description">Promoção especial</span>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-info">Percentual</span></td>
+                            <td><strong>20%</strong></td>
+                            <td>
+                                <div class="usage-info">
+                                    <span>145/200</span>
+                                    <div class="usage-bar">
+                                        <div class="usage-fill" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>20/11/2025</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon-small" onclick="editCoupon(2)" title="Editar">✏️</button>
+                                    <button class="btn-icon-small" onclick="copyCoupon(2)" title="Copiar">📋</button>
+                                    <button class="btn-icon-small" onclick="toggleCoupon(2)" title="Desativar">⏸️</button>
+                                    <button class="btn-icon-small" onclick="deleteCoupon(2)" title="Excluir">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr data-status="active">
+                            <td>
+                                <div class="coupon-code-cell">
+                                    <strong>VIP30</strong>
+                                    <span class="coupon-description">Exclusivo VIP</span>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-info">Percentual</span></td>
+                            <td><strong>30%</strong></td>
+                            <td>
+                                <div class="usage-info">
+                                    <span>42/100</span>
+                                    <div class="usage-bar">
+                                        <div class="usage-fill" style="width: 42%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>31/12/2025</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon-small" onclick="editCoupon(3)" title="Editar">✏️</button>
+                                    <button class="btn-icon-small" onclick="copyCoupon(3)" title="Copiar">📋</button>
+                                    <button class="btn-icon-small" onclick="toggleCoupon(3)" title="Desativar">⏸️</button>
+                                    <button class="btn-icon-small" onclick="deleteCoupon(3)" title="Excluir">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr data-status="active">
+                            <td>
+                                <div class="coupon-code-cell">
+                                    <strong>FRETEGRATIS</strong>
+                                    <span class="coupon-description">Sem taxa de transação</span>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-success">Fixo</span></td>
+                            <td><strong>R$ 10,00</strong></td>
+                            <td>
+                                <div class="usage-info">
+                                    <span>28/∞</span>
+                                    <div class="usage-bar">
+                                        <div class="usage-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Ilimitado</td>
+                            <td><span class="status-badge active">Ativo</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon-small" onclick="editCoupon(4)" title="Editar">✏️</button>
+                                    <button class="btn-icon-small" onclick="copyCoupon(4)" title="Copiar">📋</button>
+                                    <button class="btn-icon-small" onclick="toggleCoupon(4)" title="Desativar">⏸️</button>
+                                    <button class="btn-icon-small" onclick="deleteCoupon(4)" title="Excluir">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr data-status="scheduled">
+                            <td>
+                                <div class="coupon-code-cell">
+                                    <strong>BLACKFRIDAY50</strong>
+                                    <span class="coupon-description">Black Friday 2025</span>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-info">Percentual</span></td>
+                            <td><strong>50%</strong></td>
+                            <td>
+                                <div class="usage-info">
+                                    <span>0/1000</span>
+                                    <div class="usage-bar">
+                                        <div class="usage-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>29/11/2025</td>
+                            <td><span class="status-badge scheduled">Agendado</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon-small" onclick="editCoupon(5)" title="Editar">✏️</button>
+                                    <button class="btn-icon-small" onclick="copyCoupon(5)" title="Copiar">📋</button>
+                                    <button class="btn-icon-small" onclick="activateCoupon(5)" title="Ativar Agora">▶️</button>
+                                    <button class="btn-icon-small" onclick="deleteCoupon(5)" title="Excluir">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr data-status="expired">
+                            <td>
+                                <div class="coupon-code-cell">
+                                    <strong>OUTUBRO15</strong>
+                                    <span class="coupon-description">Promoção de Outubro</span>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-info">Percentual</span></td>
+                            <td><strong>15%</strong></td>
+                            <td>
+                                <div class="usage-info">
+                                    <span>250/250</span>
+                                    <div class="usage-bar">
+                                        <div class="usage-fill full" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>31/10/2025</td>
+                            <td><span class="status-badge expired">Expirado</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <button class="btn-icon-small" onclick="viewStats(6)" title="Ver Estatísticas">📊</button>
+                                    <button class="btn-icon-small" onclick="duplicateCoupon(6)" title="Duplicar">📑</button>
+                                    <button class="btn-icon-small" onclick="deleteCoupon(6)" title="Excluir">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create/Edit Coupon Modal -->
+    <div id="coupon-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Novo Cupom</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="coupon-form">
+                    <div class="form-group">
+                        <label>Código do Cupom *</label>
+                        <input type="text" id="coupon-code" placeholder="Ex: PROMO20" required>
+                        <button type="button" class="btn-generate" onclick="generateCode()">Gerar Código</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" id="coupon-description" placeholder="Descrição interna do cupom">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tipo de Desconto *</label>
+                            <select id="discount-type" onchange="toggleDiscountInput()">
+                                <option value="percentage">Percentual (%)</option>
+                                <option value="fixed">Valor Fixo (R$)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Valor do Desconto *</label>
+                            <input type="number" id="discount-value" placeholder="Ex: 10" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Limite de Usos</label>
+                            <input type="number" id="usage-limit" placeholder="Ilimitado" min="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Data de Validade</label>
+                            <input type="date" id="expiry-date">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valor Mínimo de Compra (R$)</label>
+                        <input type="number" id="min-purchase" placeholder="0.00" min="0" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Produtos Aplicáveis</label>
+                        <select id="applicable-products" multiple>
+                            <option value="all" selected>Todos os produtos</option>
+                            <option value="1">Bot de Automação Premium</option>
+                            <option value="2">Curso de JavaScript</option>
+                            <option value="3">Script de Web Scraping</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="first-purchase">
+                            Apenas primeira compra
+                        </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="active" checked>
+                            Ativar cupom imediatamente
+                        </label>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Criar Cupom</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function filterCoupons(status) {
+            document.querySelectorAll('.coupon-filter').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                if (status === 'all' || row.dataset.status === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function openCreateModal() {
+            document.getElementById('coupon-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('coupon-modal').style.display = 'none';
+        }
+
+        function generateCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('coupon-code').value = code;
+        }
+
+        function toggleDiscountInput() {
+            const type = document.getElementById('discount-type').value;
+            const input = document.getElementById('discount-value');
+            if (type === 'percentage') {
+                input.placeholder = 'Ex: 10';
+                input.max = '100';
+            } else {
+                input.placeholder = 'Ex: 50.00';
+                input.removeAttribute('max');
+            }
+        }
+
+        function editCoupon(id) {
+            openCreateModal();
+            showToast('Editando cupom...');
+        }
+
+        function copyCoupon(id) {
+            showToast('Código copiado para área de transferência!');
+        }
+
+        function toggleCoupon(id) {
+            showToast('Cupom desativado');
+        }
+
+        function deleteCoupon(id) {
+            if (confirm('Deseja realmente excluir este cupom?')) {
+                showToast('Cupom excluído');
+            }
+        }
+
+        function activateCoupon(id) {
+            showToast('Cupom ativado!');
+        }
+
+        function viewStats(id) {
+            showToast('Abrindo estatísticas...');
+        }
+
+        function duplicateCoupon(id) {
+            showToast('Cupom duplicado!');
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        document.getElementById('coupon-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Cupom criado com sucesso!');
+            closeModal();
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('coupon-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

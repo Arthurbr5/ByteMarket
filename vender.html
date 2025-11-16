@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vender - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html" class="active">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Cadastrar Produto ou Serviço</h2>
+            <p>Comece a vender no ByteMarket agora mesmo</p>
+        </div>
+    </section>
+
+    <section class="form-section">
+        <div class="container">
+            <form class="sell-form" id="sellForm">
+                <div class="form-card">
+                    <h3>Informações Básicas</h3>
+                    
+                    <div class="form-group">
+                        <label for="productType">Tipo de Produto/Serviço *</label>
+                        <select id="productType" required>
+                            <option value="">Selecione...</option>
+                            <option value="script">Script</option>
+                            <option value="bot">Bot</option>
+                            <option value="curso">Curso</option>
+                            <option value="arte">Arte/Design</option>
+                            <option value="servico">Serviço</option>
+                            <option value="template">Template</option>
+                            <option value="plugin">Plugin</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productTitle">Título *</label>
+                        <input type="text" id="productTitle" placeholder="Ex: Bot de Automação Premium" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productDescription">Descrição *</label>
+                        <textarea id="productDescription" rows="6" placeholder="Descreva seu produto ou serviço em detalhes..." required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPrice">Preço (R$) *</label>
+                            <input type="number" id="productPrice" placeholder="0.00" step="0.01" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productCategory">Categoria *</label>
+                            <select id="productCategory" required>
+                                <option value="">Selecione...</option>
+                                <option value="automacao">Automação</option>
+                                <option value="web">Web Development</option>
+                                <option value="mobile">Mobile</option>
+                                <option value="design">Design</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="educacao">Educação</option>
+                                <option value="games">Games</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Detalhes do Produto</h3>
+
+                    <div class="form-group">
+                        <label for="productImages">Imagens do Produto</label>
+                        <div class="file-upload-area" id="imageUploadArea">
+                            <input type="file" id="productImages" accept="image/*" multiple hidden>
+                            <div class="upload-placeholder">
+                                <p>📷 Clique para adicionar imagens</p>
+                                <span>PNG, JPG ou GIF (máx. 5MB cada)</span>
+                            </div>
+                        </div>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productFiles">Arquivos do Produto (opcional)</label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <input type="file" id="productFiles" multiple hidden>
+                            <div class="upload-placeholder">
+                                <p>📁 Clique para adicionar arquivos</p>
+                                <span>Adicione arquivos ZIP, PDF, etc.</span>
+                            </div>
+                        </div>
+                        <div id="filePreview" class="file-preview"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productTags">Tags (separadas por vírgula)</label>
+                        <input type="text" id="productTags" placeholder="Ex: python, automação, bot, telegram">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productDemo">Link de Demonstração (opcional)</label>
+                        <input type="url" id="productDemo" placeholder="https://...">
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Informações de Entrega</h3>
+
+                    <div class="form-group">
+                        <label>Tipo de Entrega *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="deliveryType" value="digital" checked>
+                                <span>Download Digital</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="deliveryType" value="service">
+                                <span>Serviço/Trabalho Personalizado</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="deliveryType" value="link">
+                                <span>Link de Acesso</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deliveryTime">Prazo de Entrega</label>
+                        <select id="deliveryTime">
+                            <option value="instant">Instantâneo</option>
+                            <option value="24h">24 horas</option>
+                            <option value="3days">3 dias</option>
+                            <option value="7days">7 dias</option>
+                            <option value="15days">15 dias</option>
+                            <option value="30days">30 dias</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="includesSupport">
+                            Inclui suporte técnico
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="includesUpdates">
+                            Inclui atualizações gratuitas
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3>Termos e Condições</h3>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="agreeTerms" required>
+                            Eu concordo com os <a href="#" target="_blank">Termos de Serviço</a> e a <a href="#" target="_blank">Política de Vendas</a> do ByteMarket
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="confirmOwnership" required>
+                            Confirmo que sou o criador/detentor dos direitos deste produto/serviço
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary">Salvar como Rascunho</button>
+                    <button type="submit" class="btn btn-primary">Publicar Produto</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script src="plans.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Verificar login
+        if (!app.isLoggedIn()) {
+            showMessage('Faça login para vender produtos', 'error');
+            setTimeout(() => window.location.href = 'login.html', 1500);
+        }
+
+        // Exibir informações do plano
+        const currentPlan = planSystem.getCurrentPlan();
+        const form = document.querySelector('.listing-form');
+        
+        // Adicionar info de plano no topo do formulário
+        const planInfo = document.createElement('div');
+        planInfo.className = 'plan-info-box';
+        planInfo.style.cssText = 'background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 4px solid #3b82f6;';
+        
+        const limit = planSystem.getProductLimit();
+        const limitText = limit === -1 ? 'Ilimitados' : limit;
+        const userProducts = JSON.parse(localStorage.getItem('bytemarket_user_products') || '[]');
+        const remaining = limit === -1 ? '∞' : Math.max(0, limit - userProducts.length);
+        
+        planInfo.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <h4 style="margin: 0 0 0.5rem 0; color: #1e40af;">
+                        ${planSystem.renderPlanBadge(currentPlan.id)} Plano ${currentPlan.name}
+                    </h4>
+                    <p style="margin: 0; color: #1e40af;">
+                        <strong>Taxa por venda:</strong> ${currentPlan.fee}% • 
+                        <strong>Produtos:</strong> ${userProducts.length}/${limitText} • 
+                        <strong>Restam:</strong> ${remaining}
+                    </p>
+                </div>
+                <a href="planos.html" class="btn btn-secondary" style="white-space: nowrap;">Ver Planos</a>
+            </div>
+        `;
+        
+        form.parentElement.insertBefore(planInfo, form);
+
+        // Validar ao submeter
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Verificar limite
+            if (!planSystem.canAddProduct()) {
+                return;
+            }
+
+            // Coletar dados do formulário
+            const formData = new FormData(form);
+            const product = {
+                id: 'prod-' + Date.now(),
+                name: formData.get('productName'),
+                category: formData.get('productCategory'),
+                price: parseFloat(formData.get('productPrice')),
+                description: formData.get('productDescription'),
+                createdAt: new Date().toISOString(),
+                status: 'active'
+            };
+
+            // Adicionar aos produtos do usuário
+            userProducts.push(product);
+            localStorage.setItem('bytemarket_user_products', JSON.stringify(userProducts));
+
+            showMessage('Produto cadastrado com sucesso! 🎉');
+            
+            setTimeout(() => {
+                window.location.href = 'painel.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

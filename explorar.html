@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html" class="active">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Explorar Produtos e Serviços</h2>
+            <p>Encontre scripts, bots, cursos, artes e muito mais</p>
+        </div>
+    </section>
+
+    <section class="explore-section">
+        <div class="container">
+            <div class="explore-layout">
+                <aside class="filters-sidebar">
+                    <h3>Filtros</h3>
+                    
+                    <div class="filter-group">
+                        <h4>Categorias</h4>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="category" value="scripts">
+                            <span>Scripts</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="category" value="bots">
+                            <span>Bots</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="category" value="cursos">
+                            <span>Cursos</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="category" value="artes">
+                            <span>Artes</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="category" value="servicos">
+                            <span>Serviços</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="category" value="templates">
+                            <span>Templates</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="category" value="plugins">
+                            <span>Plugins</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Preço</h4>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="price" value="free">
+                            <span>Grátis</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="price" value="0-50">
+                            <span>R$ 0 - R$ 50</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="price" value="50-100">
+                            <span>R$ 50 - R$ 100</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="price" value="100-200">
+                            <span>R$ 100 - R$ 200</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="price" value="200+">
+                            <span>R$ 200+</span>
+                        </label>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>Avaliação</h4>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="rating" value="5">
+                            <span>⭐⭐⭐⭐⭐ 5 estrelas</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="rating" value="4">
+                            <span>⭐⭐⭐⭐ 4+ estrelas</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="rating" value="3">
+                            <span>⭐⭐⭐ 3+ estrelas</span>
+                        </label>
+                    </div>
+
+                    <button class="btn btn-secondary btn-block">Aplicar Filtros</button>
+                </aside>
+
+                <div class="products-main">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Buscar produtos ou serviços...">
+                        <button class="btn btn-primary">Buscar</button>
+                    </div>
+
+                    <div class="sort-options">
+                        <label>Ordenar por:</label>
+                        <select>
+                            <option>Mais Relevantes</option>
+                            <option>Menor Preço</option>
+                            <option>Maior Preço</option>
+                            <option>Mais Vendidos</option>
+                            <option>Melhor Avaliados</option>
+                            <option>Mais Recentes</option>
+                        </select>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Bot de Automação Premium</h4>
+                                <p class="category">Bots</p>
+                                <div class="rating">⭐⭐⭐⭐⭐ (127)</div>
+                                <p class="price">R$ 149,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Curso Completo de Python</h4>
+                                <p class="category">Cursos</p>
+                                <div class="rating">⭐⭐⭐⭐⭐ (89)</div>
+                                <p class="price">R$ 299,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Pack de Assets para Jogos</h4>
+                                <p class="category">Artes</p>
+                                <div class="rating">⭐⭐⭐⭐ (54)</div>
+                                <p class="price">R$ 79,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Script de Integração API</h4>
+                                <p class="category">Scripts</p>
+                                <div class="rating">⭐⭐⭐⭐⭐ (203)</div>
+                                <p class="price">R$ 199,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Template Web Responsivo</h4>
+                                <p class="category">Templates</p>
+                                <div class="rating">⭐⭐⭐⭐ (42)</div>
+                                <p class="price">R$ 59,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Bot Discord Completo</h4>
+                                <p class="category">Bots</p>
+                                <div class="rating">⭐⭐⭐⭐⭐ (167)</div>
+                                <p class="price">R$ 129,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Curso de Web Design</h4>
+                                <p class="category">Cursos</p>
+                                <div class="rating">⭐⭐⭐⭐ (76)</div>
+                                <p class="price">R$ 249,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <h4>Icons Pack Premium</h4>
+                                <p class="category">Artes</p>
+                                <div class="rating">⭐⭐⭐⭐⭐ (312)</div>
+                                <p class="price">R$ 39,90</p>
+                                <button class="btn btn-small">Ver Detalhes</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="btn-page active">1</button>
+                        <button class="btn-page">2</button>
+                        <button class="btn-page">3</button>
+                        <button class="btn-page">4</button>
+                        <button class="btn-page">Próximo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

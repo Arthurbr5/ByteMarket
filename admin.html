@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket Admin</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Site</a></li>
+                <li><a href="admin.html" class="active">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="admin-section">
+        <div class="container">
+            <div class="admin-layout">
+                <aside class="admin-sidebar">
+                    <nav class="admin-nav">
+                        <a href="#dashboard" class="nav-item active" onclick="showAdminSection('dashboard')">
+                            📊 Dashboard
+                        </a>
+                        <a href="#users" class="nav-item" onclick="showAdminSection('users')">
+                            👥 Usuários
+                        </a>
+                        <a href="#products" class="nav-item" onclick="showAdminSection('products')">
+                            📦 Produtos
+                        </a>
+                        <a href="#sales" class="nav-item" onclick="showAdminSection('sales')">
+                            💰 Vendas
+                        </a>
+                        <a href="#payments" class="nav-item" onclick="showAdminSection('payments')">
+                            💳 Pagamentos
+                        </a>
+                        <a href="#links" class="nav-item" onclick="showAdminSection('links')">
+                            🔗 Links Encurtados
+                        </a>
+                        <a href="#affiliates" class="nav-item" onclick="showAdminSection('affiliates')">
+                            🤝 Afiliados
+                        </a>
+                        <a href="#settings" class="nav-item" onclick="showAdminSection('settings')">
+                            ⚙️ Configurações
+                        </a>
+                    </nav>
+                </aside>
+
+                <main class="admin-main">
+                    <!-- Dashboard -->
+                    <div id="dashboard" class="admin-content active">
+                        <h2>Dashboard Administrativo</h2>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">👥</div>
+                                <div class="stat-info">
+                                    <h4>Total de Usuários</h4>
+                                    <p class="stat-value">1.247</p>
+                                    <span class="stat-change positive">+87 esta semana</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon">📦</div>
+                                <div class="stat-info">
+                                    <h4>Produtos Ativos</h4>
+                                    <p class="stat-value">3.891</p>
+                                    <span class="stat-change positive">+142 esta semana</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon">💰</div>
+                                <div class="stat-info">
+                                    <h4>Faturamento (30 dias)</h4>
+                                    <p class="stat-value">R$ 84.234,50</p>
+                                    <span class="stat-change positive">+23% vs mês anterior</span>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon">📈</div>
+                                <div class="stat-info">
+                                    <h4>Taxa Média</h4>
+                                    <p class="stat-value">7.2%</p>
+                                    <span class="stat-change">R$ 6.064,88 em taxas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin-row">
+                            <div class="admin-card">
+                                <h3>Vendas Recentes</h3>
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Produto</th>
+                                                <th>Vendedor</th>
+                                                <th>Comprador</th>
+                                                <th>Valor</th>
+                                                <th>Taxa</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>#8934</td>
+                                                <td>Bot de Automação</td>
+                                                <td>João Silva</td>
+                                                <td>Maria S.</td>
+                                                <td>R$ 149,90</td>
+                                                <td>R$ 7,50</td>
+                                                <td><span class="badge badge-success">Concluído</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>#8933</td>
+                                                <td>Curso Python</td>
+                                                <td>Ana Costa</td>
+                                                <td>Pedro R.</td>
+                                                <td>R$ 299,90</td>
+                                                <td>R$ 29,99</td>
+                                                <td><span class="badge badge-success">Concluído</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>#8932</td>
+                                                <td>Template Web</td>
+                                                <td>Carlos M.</td>
+                                                <td>Lucas P.</td>
+                                                <td>R$ 59,90</td>
+                                                <td>R$ 5,99</td>
+                                                <td><span class="badge badge-warning">Processando</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Usuários -->
+                    <div id="users" class="admin-content">
+                        <div class="section-header">
+                            <h2>Gerenciar Usuários</h2>
+                            <div class="admin-actions">
+                                <input type="text" placeholder="Buscar usuário..." class="search-input">
+                                <button class="btn btn-primary">+ Novo Usuário</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Plano</th>
+                                            <th>Produtos</th>
+                                            <th>Vendas</th>
+                                            <th>Cadastro</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#1247</td>
+                                            <td>João Silva</td>
+                                            <td>joao@email.com</td>
+                                            <td><span class="badge badge-warning">Premium</span></td>
+                                            <td>8</td>
+                                            <td>342</td>
+                                            <td>12/10/2025</td>
+                                            <td>
+                                                <button class="btn-icon" title="Editar">✏️</button>
+                                                <button class="btn-icon" title="Suspender">🚫</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#1246</td>
+                                            <td>Ana Costa</td>
+                                            <td>ana@email.com</td>
+                                            <td><span class="badge badge-success">Pro</span></td>
+                                            <td>15</td>
+                                            <td>891</td>
+                                            <td>08/10/2025</td>
+                                            <td>
+                                                <button class="btn-icon" title="Editar">✏️</button>
+                                                <button class="btn-icon" title="Suspender">🚫</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#1245</td>
+                                            <td>Carlos Mendes</td>
+                                            <td>carlos@email.com</td>
+                                            <td><span class="badge">Gratuito</span></td>
+                                            <td>3</td>
+                                            <td>45</td>
+                                            <td>05/10/2025</td>
+                                            <td>
+                                                <button class="btn-icon" title="Editar">✏️</button>
+                                                <button class="btn-icon" title="Suspender">🚫</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produtos -->
+                    <div id="products" class="admin-content">
+                        <div class="section-header">
+                            <h2>Gerenciar Produtos</h2>
+                            <div class="admin-actions">
+                                <select class="filter-select">
+                                    <option>Todos os status</option>
+                                    <option>Ativos</option>
+                                    <option>Pendentes</option>
+                                    <option>Suspensos</option>
+                                </select>
+                                <input type="text" placeholder="Buscar produto..." class="search-input">
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Produto</th>
+                                            <th>Vendedor</th>
+                                            <th>Categoria</th>
+                                            <th>Preço</th>
+                                            <th>Vendas</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#3891</td>
+                                            <td>Bot de Automação Premium</td>
+                                            <td>João Silva</td>
+                                            <td>Bots</td>
+                                            <td>R$ 149,90</td>
+                                            <td>342</td>
+                                            <td><span class="badge badge-success">Ativo</span></td>
+                                            <td>
+                                                <button class="btn-icon" title="Ver">👁️</button>
+                                                <button class="btn-icon" title="Editar">✏️</button>
+                                                <button class="btn-icon" title="Suspender">🚫</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#3890</td>
+                                            <td>Curso Completo de Python</td>
+                                            <td>Ana Costa</td>
+                                            <td>Cursos</td>
+                                            <td>R$ 299,90</td>
+                                            <td>567</td>
+                                            <td><span class="badge badge-success">Ativo</span></td>
+                                            <td>
+                                                <button class="btn-icon" title="Ver">👁️</button>
+                                                <button class="btn-icon" title="Editar">✏️</button>
+                                                <button class="btn-icon" title="Suspender">🚫</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#3889</td>
+                                            <td>Pack de Assets para Jogos</td>
+                                            <td>Carlos M.</td>
+                                            <td>Artes</td>
+                                            <td>R$ 79,90</td>
+                                            <td>156</td>
+                                            <td><span class="badge badge-warning">Pendente</span></td>
+                                            <td>
+                                                <button class="btn-icon" title="Ver">👁️</button>
+                                                <button class="btn-icon" title="Aprovar">✅</button>
+                                                <button class="btn-icon" title="Rejeitar">❌</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagamentos -->
+                    <div id="payments" class="admin-content">
+                        <div class="section-header">
+                            <h2>Gerenciar Pagamentos</h2>
+                            <div class="admin-actions">
+                                <select class="filter-select">
+                                    <option>Todos os status</option>
+                                    <option>Pendentes</option>
+                                    <option>Processando</option>
+                                    <option>Concluídos</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Usuário</th>
+                                            <th>Tipo</th>
+                                            <th>Método</th>
+                                            <th>Valor</th>
+                                            <th>Data</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#5421</td>
+                                            <td>João Silva</td>
+                                            <td>Saque</td>
+                                            <td>Pix</td>
+                                            <td>R$ 1.500,00</td>
+                                            <td>13/11/2025</td>
+                                            <td><span class="badge badge-warning">Pendente</span></td>
+                                            <td>
+                                                <button class="btn-icon" title="Aprovar">✅</button>
+                                                <button class="btn-icon" title="Rejeitar">❌</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#5420</td>
+                                            <td>Ana Costa</td>
+                                            <td>Assinatura</td>
+                                            <td>Cartão</td>
+                                            <td>R$ 99,00</td>
+                                            <td>13/11/2025</td>
+                                            <td><span class="badge badge-success">Concluído</span></td>
+                                            <td>
+                                                <button class="btn-icon" title="Ver">👁️</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#5419</td>
+                                            <td>Carlos M.</td>
+                                            <td>Saque</td>
+                                            <td>Pix</td>
+                                            <td>R$ 850,00</td>
+                                            <td>12/11/2025</td>
+                                            <td><span class="badge badge-success">Concluído</span></td>
+                                            <td>
+                                                <button class="btn-icon" title="Ver">👁️</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Links Encurtados -->
+                    <div id="links" class="admin-content">
+                        <div class="section-header">
+                            <h2>Links Encurtados e Rastreamento</h2>
+                            <button class="btn btn-primary">+ Criar Link</button>
+                        </div>
+
+                        <div class="admin-card">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Link Curto</th>
+                                            <th>Produto</th>
+                                            <th>Destino</th>
+                                            <th>Cliques</th>
+                                            <th>Conversões</th>
+                                            <th>Taxa</th>
+                                            <th>Criado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>byte.mk/bot123</code></td>
+                                            <td>Bot de Automação</td>
+                                            <td>explorar.html?id=3891</td>
+                                            <td>1.247</td>
+                                            <td>89</td>
+                                            <td>7.13%</td>
+                                            <td>10/11/2025</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>byte.mk/curso-py</code></td>
+                                            <td>Curso Python</td>
+                                            <td>explorar.html?id=3890</td>
+                                            <td>2.891</td>
+                                            <td>234</td>
+                                            <td>8.09%</td>
+                                            <td>08/11/2025</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>byte.mk/assets</code></td>
+                                            <td>Pack de Assets</td>
+                                            <td>explorar.html?id=3889</td>
+                                            <td>456</td>
+                                            <td>34</td>
+                                            <td>7.46%</td>
+                                            <td>05/11/2025</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Afiliados -->
+                    <div id="affiliates" class="admin-content">
+                        <div class="section-header">
+                            <h2>Sistema de Afiliados</h2>
+                            <button class="btn btn-primary">+ Novo Afiliado</button>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">🤝</div>
+                                <div class="stat-info">
+                                    <h4>Afiliados Ativos</h4>
+                                    <p class="stat-value">147</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">💰</div>
+                                <div class="stat-info">
+                                    <h4>Comissões Pagas</h4>
+                                    <p class="stat-value">R$ 12.847,90</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">📈</div>
+                                <div class="stat-info">
+                                    <h4>Vendas por Afiliados</h4>
+                                    <p class="stat-value">892</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin-card">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Afiliado</th>
+                                            <th>Código</th>
+                                            <th>Vendas</th>
+                                            <th>Comissão</th>
+                                            <th>Total Ganho</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pedro Santos</td>
+                                            <td><code>AFI-PS2025</code></td>
+                                            <td>234</td>
+                                            <td>15%</td>
+                                            <td>R$ 4.567,80</td>
+                                            <td><span class="badge badge-success">Ativo</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mariana Lima</td>
+                                            <td><code>AFI-ML2025</code></td>
+                                            <td>189</td>
+                                            <td>12%</td>
+                                            <td>R$ 3.234,50</td>
+                                            <td><span class="badge badge-success">Ativo</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rafael Oliveira</td>
+                                            <td><code>AFI-RO2025</code></td>
+                                            <td>156</td>
+                                            <td>10%</td>
+                                            <td>R$ 2.891,20</td>
+                                            <td><span class="badge badge-success">Ativo</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configurações -->
+                    <div id="settings" class="admin-content">
+                        <h2>Configurações do Sistema</h2>
+
+                        <div class="admin-card">
+                            <h3>Taxas e Comissões</h3>
+                            <form class="settings-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Taxa Plano Gratuito (%)</label>
+                                        <input type="number" value="10" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Taxa Plano Premium (%)</label>
+                                        <input type="number" value="5" step="0.1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Comissão Afiliados (%)</label>
+                                        <input type="number" value="15" step="0.1">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </form>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>Pagamentos</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Mercado Pago - Access Token</label>
+                                    <input type="password" placeholder="Seu token de acesso">
+                                </div>
+                                <div class="form-group">
+                                    <label>Chave Pix</label>
+                                    <input type="text" placeholder="sua@chave.pix">
+                                </div>
+                                <div class="form-group">
+                                    <label>Prazo para Saque (dias)</label>
+                                    <input type="number" value="7">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </form>
+                        </div>
+
+                        <div class="admin-card">
+                            <h3>Encurtador de Links</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Domínio Personalizado</label>
+                                    <input type="text" value="byte.mk" placeholder="seu-dominio.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" checked>
+                                        Rastreamento automático habilitado
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </form>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function showAdminSection(sectionId) {
+            document.querySelectorAll('.admin-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.admin-nav .nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

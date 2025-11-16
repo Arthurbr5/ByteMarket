@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="messages-section">
+        <div class="container">
+            <div class="messages-layout">
+                <!-- Sidebar with conversations -->
+                <div class="conversations-sidebar">
+                    <div class="conversations-header">
+                        <h3>Conversas</h3>
+                        <button class="btn-icon-small" title="Nova mensagem">✉️</button>
+                    </div>
+                    
+                    <div class="search-conversations">
+                        <input type="text" placeholder="Buscar conversas...">
+                    </div>
+
+                    <div class="conversation-filters">
+                        <button class="filter-btn active" onclick="filterConversations('all')">Todas</button>
+                        <button class="filter-btn" onclick="filterConversations('unread')">Não lidas (3)</button>
+                        <button class="filter-btn" onclick="filterConversations('archived')">Arquivadas</button>
+                    </div>
+
+                    <div class="conversations-list">
+                        <!-- Conversation 1 - Active -->
+                        <div class="conversation-item active" onclick="openConversation(1)">
+                            <div class="conversation-avatar">JS</div>
+                            <div class="conversation-details">
+                                <div class="conversation-name">João Silva</div>
+                                <div class="conversation-preview">Olá! Tenho uma dúvida sobre o bot...</div>
+                                <div class="conversation-time">10:30</div>
+                            </div>
+                            <div class="conversation-badge">2</div>
+                        </div>
+
+                        <!-- Conversation 2 -->
+                        <div class="conversation-item" onclick="openConversation(2)">
+                            <div class="conversation-avatar">MC</div>
+                            <div class="conversation-details">
+                                <div class="conversation-name">Maria Costa</div>
+                                <div class="conversation-preview">Obrigado pela compra! Se precisar...</div>
+                                <div class="conversation-time">Ontem</div>
+                            </div>
+                        </div>
+
+                        <!-- Conversation 3 -->
+                        <div class="conversation-item unread" onclick="openConversation(3)">
+                            <div class="conversation-avatar">CP</div>
+                            <div class="conversation-details">
+                                <div class="conversation-name">Carlos Pereira</div>
+                                <div class="conversation-preview">O script está funcionando perfeitamente!</div>
+                                <div class="conversation-time">12/11</div>
+                            </div>
+                            <div class="conversation-badge">1</div>
+                        </div>
+
+                        <!-- Conversation 4 -->
+                        <div class="conversation-item" onclick="openConversation(4)">
+                            <div class="conversation-avatar">AS</div>
+                            <div class="conversation-details">
+                                <div class="conversation-name">Ana Santos</div>
+                                <div class="conversation-preview">Você: Fico feliz que tenha gostado!</div>
+                                <div class="conversation-time">10/11</div>
+                            </div>
+                        </div>
+
+                        <!-- Conversation 5 -->
+                        <div class="conversation-item" onclick="openConversation(5)">
+                            <div class="conversation-avatar">RF</div>
+                            <div class="conversation-details">
+                                <div class="conversation-name">Ricardo Ferreira</div>
+                                <div class="conversation-preview">Tem disponibilidade para um projeto?</div>
+                                <div class="conversation-time">08/11</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat area -->
+                <div class="chat-area">
+                    <div class="chat-header">
+                        <div class="chat-user-info">
+                            <div class="chat-avatar">JS</div>
+                            <div class="chat-user-details">
+                                <h4>João Silva</h4>
+                                <span class="user-status online">● Online</span>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn-icon-small" title="Informações">ℹ️</button>
+                            <button class="btn-icon-small" title="Arquivar">📁</button>
+                            <button class="btn-icon-small" title="Mais opções">⋮</button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Message from other user -->
+                        <div class="message-group">
+                            <div class="message received">
+                                <div class="message-content">
+                                    <p>Olá! Comprei o Bot de Automação Premium e estou com uma dúvida sobre a instalação.</p>
+                                </div>
+                                <div class="message-time">10:15</div>
+                            </div>
+                            <div class="message received">
+                                <div class="message-content">
+                                    <p>Você tem algum tutorial em vídeo?</p>
+                                </div>
+                                <div class="message-time">10:16</div>
+                            </div>
+                        </div>
+
+                        <!-- Message from me -->
+                        <div class="message-group sent">
+                            <div class="message sent">
+                                <div class="message-content">
+                                    <p>Olá João! Obrigado pela compra! 😊</p>
+                                </div>
+                                <div class="message-time">10:20 ✓✓</div>
+                            </div>
+                            <div class="message sent">
+                                <div class="message-content">
+                                    <p>Sim, tenho! Na área de downloads você encontra uma pasta "Tutoriais" com vídeos passo a passo.</p>
+                                </div>
+                                <div class="message-time">10:21 ✓✓</div>
+                            </div>
+                        </div>
+
+                        <!-- Message from other user -->
+                        <div class="message-group">
+                            <div class="message received">
+                                <div class="message-content">
+                                    <p>Perfeito! Encontrei aqui. Muito obrigado!</p>
+                                </div>
+                                <div class="message-time">10:25</div>
+                            </div>
+                            <div class="message received">
+                                <div class="message-content">
+                                    <p>Uma última pergunta: o bot funciona no Windows 11?</p>
+                                </div>
+                                <div class="message-time">10:30</div>
+                            </div>
+                        </div>
+
+                        <!-- Date separator -->
+                        <div class="date-separator">
+                            <span>Hoje</span>
+                        </div>
+
+                        <!-- Typing indicator -->
+                        <div class="typing-indicator" style="display: none;">
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <button class="btn-icon-small" title="Anexar arquivo">📎</button>
+                        <button class="btn-icon-small" title="Emoji">😊</button>
+                        <input type="text" id="message-input" placeholder="Digite sua mensagem..." onkeypress="handleKeyPress(event)">
+                        <button class="btn-send" onclick="sendMessage()">Enviar</button>
+                    </div>
+                </div>
+
+                <!-- Info sidebar -->
+                <div class="info-sidebar">
+                    <div class="info-user">
+                        <div class="info-avatar">JS</div>
+                        <h4>João Silva</h4>
+                        <p class="info-username">@joaosilva</p>
+                        <div class="info-badges">
+                            <span class="info-badge">✓ Verificado</span>
+                            <span class="info-badge">⭐ 5.0 (42 avaliações)</span>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>Sobre</h5>
+                        <p>Cliente desde Março 2024</p>
+                        <p>15 compras realizadas</p>
+                    </div>
+
+                    <div class="info-section">
+                        <h5>Produtos Relacionados</h5>
+                        <div class="related-product">
+                            <div class="related-product-image"></div>
+                            <div class="related-product-info">
+                                <p class="related-product-name">Bot de Automação Premium</p>
+                                <p class="related-product-date">Comprado em 13/11/2025</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-actions">
+                        <button class="btn btn-secondary btn-block">Ver Perfil</button>
+                        <button class="btn btn-danger btn-block">Bloquear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function openConversation(id) {
+            // Remove active from all conversations
+            document.querySelectorAll('.conversation-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active to clicked conversation
+            event.currentTarget.classList.add('active');
+            
+            // Remove unread badge
+            event.currentTarget.classList.remove('unread');
+            const badge = event.currentTarget.querySelector('.conversation-badge');
+            if (badge) badge.remove();
+            
+            console.log('Opened conversation:', id);
+            // Aqui você carregaria as mensagens da conversa específica
+        }
+
+        function filterConversations(filter) {
+            // Remove active from all filters
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active to clicked filter
+            event.target.classList.add('active');
+            
+            console.log('Filtering by:', filter);
+            // Aqui você implementaria a lógica de filtro
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Create message element
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageGroup = document.createElement('div');
+            messageGroup.className = 'message-group sent';
+            
+            messageGroup.innerHTML = `
+                <div class="message sent">
+                    <div class="message-content">
+                        <p>${message}</p>
+                    </div>
+                    <div class="message-time">${getCurrentTime()} ✓</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageGroup);
+            
+            // Clear input
+            input.value = '';
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Simulate typing indicator
+            setTimeout(() => {
+                document.querySelector('.typing-indicator').style.display = 'block';
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // Hide after 2 seconds
+                setTimeout(() => {
+                    document.querySelector('.typing-indicator').style.display = 'none';
+                }, 2000);
+            }, 1000);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function getCurrentTime() {
+            const now = new Date();
+            return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+        }
+
+        // Auto-scroll to bottom on load
+        window.addEventListener('load', () => {
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        });
+    </script>
+</body>
+</html>

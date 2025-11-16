@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot de Automação Premium - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-detail-layout">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <div class="product-main-img"></div>
+                        <span class="badge badge-premium">Premium</span>
+                    </div>
+                    <div class="thumbnail-grid">
+                        <div class="thumbnail active"></div>
+                        <div class="thumbnail"></div>
+                        <div class="thumbnail"></div>
+                        <div class="thumbnail"></div>
+                    </div>
+                </div>
+
+                <div class="product-info-box">
+                    <h1>Bot de Automação Premium</h1>
+                    <div class="product-meta">
+                        <div class="rating-display">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.9 (127 avaliações)</span>
+                        </div>
+                        <span class="product-sales">342 vendas</span>
+                    </div>
+
+                    <div class="product-price-box">
+                        <span class="price-main">R$ 149,90</span>
+                        <span class="price-old">R$ 299,90</span>
+                        <span class="price-discount">50% OFF</span>
+                    </div>
+
+                    <div class="product-seller">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%236366f1'/%3E%3C/svg%3E" alt="Vendedor">
+                        <div>
+                            <p class="seller-name">João Silva</p>
+                            <p class="seller-badge">✓ Vendedor Premium</p>
+                        </div>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-large btn-block">💳 Comprar Agora</button>
+                        <button class="btn btn-secondary btn-block">❤️ Adicionar aos Favoritos</button>
+                    </div>
+
+                    <div class="product-features">
+                        <div class="feature-item">
+                            <span>✓</span> Download imediato
+                        </div>
+                        <div class="feature-item">
+                            <span>✓</span> Atualizações gratuitas
+                        </div>
+                        <div class="feature-item">
+                            <span>✓</span> Suporte técnico incluso
+                        </div>
+                        <div class="feature-item">
+                            <span>✓</span> Garantia de 7 dias
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="showTab('description')">Descrição</button>
+                    <button class="tab-btn" onclick="showTab('features')">Características</button>
+                    <button class="tab-btn" onclick="showTab('reviews')">Avaliações (127)</button>
+                    <button class="tab-btn" onclick="showTab('comments')">Comentários (45)</button>
+                </div>
+
+                <div class="tabs-content">
+                    <div id="description" class="tab-content active">
+                        <h3>Sobre este produto</h3>
+                        <p>Bot de automação completo para WhatsApp, Telegram e Discord. Automatize mensagens, respostas, envios em massa e muito mais!</p>
+                        
+                        <h4>O que você vai receber:</h4>
+                        <ul>
+                            <li>Código fonte completo em Python</li>
+                            <li>Documentação detalhada</li>
+                            <li>Vídeo tutorial de instalação</li>
+                            <li>Suporte via Discord por 30 dias</li>
+                            <li>Atualizações gratuitas por 1 ano</li>
+                        </ul>
+
+                        <h4>Funcionalidades principais:</h4>
+                        <ul>
+                            <li>✅ Respostas automáticas personalizadas</li>
+                            <li>✅ Envio de mensagens em massa</li>
+                            <li>✅ Agendamento de mensagens</li>
+                            <li>✅ Integração com APIs externas</li>
+                            <li>✅ Sistema de comandos customizáveis</li>
+                            <li>✅ Logs e relatórios detalhados</li>
+                        </ul>
+
+                        <h4>Requisitos:</h4>
+                        <ul>
+                            <li>Python 3.8 ou superior</li>
+                            <li>Conhecimento básico de programação</li>
+                            <li>Servidor VPS ou computador ligado 24/7</li>
+                        </ul>
+                    </div>
+
+                    <div id="features" class="tab-content">
+                        <h3>Características Técnicas</h3>
+                        <div class="features-list">
+                            <div class="feature-box">
+                                <h4>📦 Entrega</h4>
+                                <p>Download imediato via link seguro</p>
+                            </div>
+                            <div class="feature-box">
+                                <h4>💻 Plataformas</h4>
+                                <p>Windows, Linux, MacOS</p>
+                            </div>
+                            <div class="feature-box">
+                                <h4>🔄 Atualizações</h4>
+                                <p>Gratuitas por 1 ano</p>
+                            </div>
+                            <div class="feature-box">
+                                <h4>🛠️ Suporte</h4>
+                                <p>Discord + Email por 30 dias</p>
+                            </div>
+                            <div class="feature-box">
+                                <h4>📝 Licença</h4>
+                                <p>Uso comercial permitido</p>
+                            </div>
+                            <div class="feature-box">
+                                <h4>🔐 Segurança</h4>
+                                <p>Código revisado e testado</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="reviews" class="tab-content">
+                        <h3>Avaliações dos Clientes</h3>
+                        
+                        <div class="reviews-summary">
+                            <div class="rating-overview">
+                                <div class="rating-number">4.9</div>
+                                <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                                <p>127 avaliações</p>
+                            </div>
+                            <div class="rating-bars">
+                                <div class="rating-bar-item">
+                                    <span>5 ⭐</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 89%"></div>
+                                    </div>
+                                    <span>113</span>
+                                </div>
+                                <div class="rating-bar-item">
+                                    <span>4 ⭐</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 7%"></div>
+                                    </div>
+                                    <span>9</span>
+                                </div>
+                                <div class="rating-bar-item">
+                                    <span>3 ⭐</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 3%"></div>
+                                    </div>
+                                    <span>4</span>
+                                </div>
+                                <div class="rating-bar-item">
+                                    <span>2 ⭐</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 1%"></div>
+                                    </div>
+                                    <span>1</span>
+                                </div>
+                                <div class="rating-bar-item">
+                                    <span>1 ⭐</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 0%"></div>
+                                    </div>
+                                    <span>0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reviews-list">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <strong>Maria Santos</strong>
+                                        <span class="review-date">2 dias atrás</span>
+                                    </div>
+                                    <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                                </div>
+                                <p class="review-text">Excelente bot! Funcionou perfeitamente. O suporte do vendedor foi muito rápido e eficiente. Recomendo!</p>
+                                <div class="review-helpful">
+                                    <button class="btn-helpful">👍 Útil (23)</button>
+                                </div>
+                            </div>
+
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <strong>Pedro Costa</strong>
+                                        <span class="review-date">5 dias atrás</span>
+                                    </div>
+                                    <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                                </div>
+                                <p class="review-text">Muito bom! Vale cada centavo. A documentação está completa e fácil de entender.</p>
+                                <div class="review-helpful">
+                                    <button class="btn-helpful">👍 Útil (18)</button>
+                                </div>
+                            </div>
+
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <strong>Ana Oliveira</strong>
+                                        <span class="review-date">1 semana atrás</span>
+                                    </div>
+                                    <div class="review-rating">⭐⭐⭐⭐</div>
+                                </div>
+                                <p class="review-text">Produto de qualidade. Tive um pequeno problema na instalação mas o vendedor me ajudou rapidamente.</p>
+                                <div class="review-helpful">
+                                    <button class="btn-helpful">👍 Útil (12)</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-secondary">Ver todas as avaliações</button>
+                    </div>
+
+                    <div id="comments" class="tab-content">
+                        <h3>Comentários e Dúvidas</h3>
+                        
+                        <div class="comment-form">
+                            <textarea placeholder="Faça uma pergunta ou deixe um comentário..." rows="3"></textarea>
+                            <button class="btn btn-primary">Enviar Comentário</button>
+                        </div>
+
+                        <div class="comments-list">
+                            <div class="comment-item">
+                                <div class="comment-author">
+                                    <strong>Carlos Silva</strong>
+                                    <span>3 horas atrás</span>
+                                </div>
+                                <p class="comment-text">O bot funciona com WhatsApp Business API?</p>
+                                <div class="comment-reply">
+                                    <strong>João Silva (Vendedor)</strong>
+                                    <p>Sim! Funciona perfeitamente com WhatsApp Business API. Inclusive tem exemplos na documentação 😊</p>
+                                </div>
+                                <button class="btn-reply">↩️ Responder</button>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-author">
+                                    <strong>Lucia Mendes</strong>
+                                    <span>1 dia atrás</span>
+                                </div>
+                                <p class="comment-text">Comprei ontem e já está rodando! Muito bom mesmo, parabéns!</p>
+                                <button class="btn-reply">↩️ Responder</button>
+                            </div>
+
+                            <div class="comment-item">
+                                <div class="comment-author">
+                                    <strong>Rafael Lima</strong>
+                                    <span>2 dias atrás</span>
+                                </div>
+                                <p class="comment-text">Tem como customizar as respostas automáticas?</p>
+                                <div class="comment-reply">
+                                    <strong>João Silva (Vendedor)</strong>
+                                    <p>Com certeza! Você pode personalizar todas as respostas através de um arquivo JSON muito simples.</p>
+                                </div>
+                                <button class="btn-reply">↩️ Responder</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-secondary">Carregar mais comentários</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-products">
+                <h3>Produtos Relacionados</h3>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h4>Bot Discord Completo</h4>
+                            <p class="category">Bots</p>
+                            <div class="rating">⭐⭐⭐⭐⭐ (167)</div>
+                            <p class="price">R$ 129,90</p>
+                            <button class="btn btn-small">Ver Detalhes</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h4>Script de Integração API</h4>
+                            <p class="category">Scripts</p>
+                            <div class="rating">⭐⭐⭐⭐⭐ (203)</div>
+                            <p class="price">R$ 199,90</p>
+                            <button class="btn btn-small">Ver Detalhes</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h4>Curso de Automação</h4>
+                            <p class="category">Cursos</p>
+                            <div class="rating">⭐⭐⭐⭐ (89)</div>
+                            <p class="price">R$ 299,90</p>
+                            <button class="btn btn-small">Ver Detalhes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

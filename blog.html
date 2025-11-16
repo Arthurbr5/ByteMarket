@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="blog-hero">
+        <div class="container">
+            <h1>Blog ByteMarket</h1>
+            <p>Tutoriais, dicas e insights sobre desenvolvimento, automação e vendas digitais</p>
+            <div class="blog-search">
+                <input type="text" placeholder="Buscar artigos...">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-section">
+        <div class="container">
+            <div class="blog-layout">
+                <!-- Main Content -->
+                <div class="blog-main">
+                    <div class="blog-categories">
+                        <button class="category-btn active" onclick="filterByCategory('all')">Todos</button>
+                        <button class="category-btn" onclick="filterByCategory('tutoriais')">Tutoriais</button>
+                        <button class="category-btn" onclick="filterByCategory('automacao')">Automação</button>
+                        <button class="category-btn" onclick="filterByCategory('vendas')">Vendas</button>
+                        <button class="category-btn" onclick="filterByCategory('programacao')">Programação</button>
+                    </div>
+
+                    <!-- Featured Post -->
+                    <article class="blog-post-featured" data-category="tutoriais">
+                        <div class="featured-image"></div>
+                        <div class="featured-content">
+                            <span class="post-category">Tutorial</span>
+                            <h2>Como Criar seu Primeiro Bot de Automação em Python</h2>
+                            <p class="post-excerpt">
+                                Aprenda passo a passo como desenvolver bots de automação profissionais usando Python. 
+                                Neste guia completo, você vai descobrir as melhores práticas, bibliotecas essenciais e 
+                                como estruturar seu código para máxima eficiência.
+                            </p>
+                            <div class="post-meta">
+                                <span class="post-author">👤 João Silva</span>
+                                <span class="post-date">📅 10 Nov 2025</span>
+                                <span class="post-read">⏱️ 12 min</span>
+                            </div>
+                            <a href="#" class="btn btn-primary">Ler Artigo Completo</a>
+                        </div>
+                    </article>
+
+                    <!-- Blog Posts Grid -->
+                    <div class="blog-posts-grid">
+                        <!-- Post 1 -->
+                        <article class="blog-post-card" data-category="vendas">
+                            <div class="post-image"></div>
+                            <div class="post-content">
+                                <span class="post-category">Vendas</span>
+                                <h3>10 Estratégias para Aumentar suas Vendas no ByteMarket</h3>
+                                <p class="post-excerpt">
+                                    Descubra técnicas comprovadas para impulsionar suas vendas e alcançar mais clientes...
+                                </p>
+                                <div class="post-meta">
+                                    <span class="post-author">👤 Maria Costa</span>
+                                    <span class="post-date">📅 08 Nov 2025</span>
+                                    <span class="post-read">⏱️ 8 min</span>
+                                </div>
+                                <a href="#" class="post-link">Ler mais →</a>
+                            </div>
+                        </article>
+
+                        <!-- Post 2 -->
+                        <article class="blog-post-card" data-category="programacao">
+                            <div class="post-image"></div>
+                            <div class="post-content">
+                                <span class="post-category">Programação</span>
+                                <h3>JavaScript Moderno: Arrow Functions e Async/Await</h3>
+                                <p class="post-excerpt">
+                                    Domine os recursos mais importantes do JavaScript ES6+ e escreva código mais limpo...
+                                </p>
+                                <div class="post-meta">
+                                    <span class="post-author">👤 Carlos Mendes</span>
+                                    <span class="post-date">📅 05 Nov 2025</span>
+                                    <span class="post-read">⏱️ 15 min</span>
+                                </div>
+                                <a href="#" class="post-link">Ler mais →</a>
+                            </div>
+                        </article>
+
+                        <!-- Post 3 -->
+                        <article class="blog-post-card" data-category="automacao">
+                            <div class="post-image"></div>
+                            <div class="post-content">
+                                <span class="post-category">Automação</span>
+                                <h3>Web Scraping com Python: Guia Definitivo</h3>
+                                <p class="post-excerpt">
+                                    Aprenda a extrair dados da web de forma eficiente usando BeautifulSoup e Selenium...
+                                </p>
+                                <div class="post-meta">
+                                    <span class="post-author">👤 Ana Santos</span>
+                                    <span class="post-date">📅 03 Nov 2025</span>
+                                    <span class="post-read">⏱️ 20 min</span>
+                                </div>
+                                <a href="#" class="post-link">Ler mais →</a>
+                            </div>
+                        </article>
+
+                        <!-- Post 4 -->
+                        <article class="blog-post-card" data-category="tutoriais">
+                            <div class="post-image"></div>
+                            <div class="post-content">
+                                <span class="post-category">Tutorial</span>
+                                <h3>Como Configurar APIs REST em 5 Minutos</h3>
+                                <p class="post-excerpt">
+                                    Tutorial rápido e prático para criar e consumir APIs RESTful com Node.js...
+                                </p>
+                                <div class="post-meta">
+                                    <span class="post-author">👤 Pedro Lima</span>
+                                    <span class="post-date">📅 01 Nov 2025</span>
+                                    <span class="post-read">⏱️ 10 min</span>
+                                </div>
+                                <a href="#" class="post-link">Ler mais →</a>
+                            </div>
+                        </article>
+
+                        <!-- Post 5 -->
+                        <article class="blog-post-card" data-category="vendas">
+                            <div class="post-image"></div>
+                            <div class="post-content">
+                                <span class="post-category">Vendas</span>
+                                <h3>Precificação de Produtos Digitais: O Que Considerar</h3>
+                                <p class="post-excerpt">
+                                    Entenda como definir preços competitivos que maximizem seus lucros...
+                                </p>
+                                <div class="post-meta">
+                                    <span class="post-author">👤 Juliana Rocha</span>
+                                    <span class="post-date">📅 30 Out 2025</span>
+                                    <span class="post-read">⏱️ 12 min</span>
+                                </div>
+                                <a href="#" class="post-link">Ler mais →</a>
+                            </div>
+                        </article>
+
+                        <!-- Post 6 -->
+                        <article class="blog-post-card" data-category="programacao">
+                            <div class="post-image"></div>
+                            <div class="post-content">
+                                <span class="post-category">Programação</span>
+                                <h3>Git e GitHub: Fluxo de Trabalho Profissional</h3>
+                                <p class="post-excerpt">
+                                    Aprenda a usar Git como um profissional: branches, merges, pull requests e mais...
+                                </p>
+                                <div class="post-meta">
+                                    <span class="post-author">👤 Ricardo Alves</span>
+                                    <span class="post-date">📅 28 Out 2025</span>
+                                    <span class="post-read">⏱️ 18 min</span>
+                                </div>
+                                <a href="#" class="post-link">Ler mais →</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="blog-pagination">
+                        <button class="btn btn-secondary" disabled>← Anterior</button>
+                        <span class="pagination-info">Página 1 de 5</span>
+                        <button class="btn btn-secondary">Próximo →</button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="blog-sidebar">
+                    <!-- Newsletter -->
+                    <div class="sidebar-widget">
+                        <h3>📬 Newsletter</h3>
+                        <p>Receba nossos melhores conteúdos semanalmente</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Seu e-mail">
+                            <button type="submit" class="btn btn-primary btn-block">Inscrever</button>
+                        </form>
+                    </div>
+
+                    <!-- Popular Posts -->
+                    <div class="sidebar-widget">
+                        <h3>🔥 Mais Lidos</h3>
+                        <div class="popular-posts">
+                            <div class="popular-post">
+                                <span class="popular-number">1</span>
+                                <div class="popular-content">
+                                    <h4>Como Ganhar R$ 5.000/mês Vendendo Bots</h4>
+                                    <span class="popular-views">12.4K visualizações</span>
+                                </div>
+                            </div>
+                            <div class="popular-post">
+                                <span class="popular-number">2</span>
+                                <div class="popular-content">
+                                    <h4>Python para Iniciantes: Roadmap Completo</h4>
+                                    <span class="popular-views">9.8K visualizações</span>
+                                </div>
+                            </div>
+                            <div class="popular-post">
+                                <span class="popular-number">3</span>
+                                <div class="popular-content">
+                                    <h4>Automação de WhatsApp: É Legal?</h4>
+                                    <span class="popular-views">8.2K visualizações</span>
+                                </div>
+                            </div>
+                            <div class="popular-post">
+                                <span class="popular-number">4</span>
+                                <div class="popular-content">
+                                    <h4>Marketing Digital para Desenvolvedores</h4>
+                                    <span class="popular-views">7.5K visualizações</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="sidebar-widget">
+                        <h3>🏷️ Tags Populares</h3>
+                        <div class="tags-cloud">
+                            <a href="#" class="tag">Python</a>
+                            <a href="#" class="tag">JavaScript</a>
+                            <a href="#" class="tag">Automação</a>
+                            <a href="#" class="tag">Bots</a>
+                            <a href="#" class="tag">Web Scraping</a>
+                            <a href="#" class="tag">API</a>
+                            <a href="#" class="tag">Marketing</a>
+                            <a href="#" class="tag">SEO</a>
+                            <a href="#" class="tag">Node.js</a>
+                            <a href="#" class="tag">React</a>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="sidebar-widget">
+                        <h3>🌐 Redes Sociais</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link youtube">
+                                <span>▶️</span>
+                                <div>
+                                    <strong>YouTube</strong>
+                                    <span>25K inscritos</span>
+                                </div>
+                            </a>
+                            <a href="#" class="social-link discord">
+                                <span>💬</span>
+                                <div>
+                                    <strong>Discord</strong>
+                                    <span>12K membros</span>
+                                </div>
+                            </a>
+                            <a href="#" class="social-link twitter">
+                                <span>🐦</span>
+                                <div>
+                                    <strong>Twitter</strong>
+                                    <span>8K seguidores</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function filterByCategory(category) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const posts = document.querySelectorAll('[data-category]');
+            posts.forEach(post => {
+                if (category === 'all' || post.dataset.category === category) {
+                    post.style.display = '';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Obrigado por se inscrever! Você receberá nossos conteúdos em breve.');
+        });
+    </script>
+</body>
+</html>

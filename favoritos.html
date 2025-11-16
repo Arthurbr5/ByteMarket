@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Favoritos - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="favorites-section">
+        <div class="container">
+            <div class="page-header-simple">
+                <h2>Meus Favoritos</h2>
+                <p>Você tem <span id="favorites-count">8 produtos</span> salvos</p>
+            </div>
+
+            <div class="favorites-actions">
+                <div class="favorites-filters">
+                    <button class="filter-btn active" onclick="filterFavorites('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterFavorites('scripts')">Scripts</button>
+                    <button class="filter-btn" onclick="filterFavorites('bots')">Bots</button>
+                    <button class="filter-btn" onclick="filterFavorites('cursos')">Cursos</button>
+                    <button class="filter-btn" onclick="filterFavorites('arte')">Arte</button>
+                </div>
+                <div class="favorites-sort">
+                    <select onchange="sortFavorites(this.value)">
+                        <option value="recent">Adicionados recentemente</option>
+                        <option value="price-low">Menor preço</option>
+                        <option value="price-high">Maior preço</option>
+                        <option value="name">Nome A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="favorites-grid">
+                <!-- Favorite Item 1 -->
+                <div class="favorite-card" data-category="bots" data-price="199.90" data-name="Bot de Automação Premium">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 1)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Bot</span>
+                        <h3>Bot de Automação Premium</h3>
+                        <p class="favorite-seller">João Silva</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">4.9 (156)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">✓ Atualizações</span>
+                            <span class="feature-tag">✓ Suporte</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 199,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(1)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Item 2 -->
+                <div class="favorite-card" data-category="cursos" data-price="149.90" data-name="Curso Completo de JavaScript">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 2)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Curso</span>
+                        <h3>Curso Completo de JavaScript</h3>
+                        <p class="favorite-seller">Ana Costa</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">5.0 (203)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">80 aulas</span>
+                            <span class="feature-tag">Certificado</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 149,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(2)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Item 3 -->
+                <div class="favorite-card" data-category="scripts" data-price="49.90" data-name="Script de Web Scraping">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 3)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Script</span>
+                        <h3>Script de Web Scraping</h3>
+                        <p class="favorite-seller">Maria Santos</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">4.8 (92)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">Python</span>
+                            <span class="feature-tag">Código-fonte</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 49,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(3)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Item 4 -->
+                <div class="favorite-card" data-category="arte" data-price="79.90" data-name="Pack de Ícones Pro">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 4)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Arte</span>
+                        <h3>Pack de Ícones Pro</h3>
+                        <p class="favorite-seller">Design Studio</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">4.9 (187)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">500+ ícones</span>
+                            <span class="feature-tag">SVG + PNG</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 79,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(4)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Item 5 -->
+                <div class="favorite-card" data-category="bots" data-price="249.90" data-name="Bot Multi-Task Pro">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 5)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Bot</span>
+                        <h3>Bot Multi-Task Pro</h3>
+                        <p class="favorite-seller">Tech Solutions</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">4.7 (89)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">Multi-threading</span>
+                            <span class="feature-tag">API avançada</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 249,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(5)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Item 6 -->
+                <div class="favorite-card" data-category="cursos" data-price="179.90" data-name="Curso de Python Avançado">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 6)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Curso</span>
+                        <h3>Curso de Python Avançado</h3>
+                        <p class="favorite-seller">Carlos Mendes</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">4.9 (145)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">120 aulas</span>
+                            <span class="feature-tag">Projetos reais</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 179,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(6)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Item 7 -->
+                <div class="favorite-card" data-category="scripts" data-price="89.90" data-name="Script de Integração API">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 7)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Script</span>
+                        <h3>Script de Integração API</h3>
+                        <p class="favorite-seller">Dev Master</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">4.6 (67)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">REST API</span>
+                            <span class="feature-tag">Documentado</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 89,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(7)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Favorite Item 8 -->
+                <div class="favorite-card" data-category="arte" data-price="129.90" data-name="Pack de Assets para Jogos">
+                    <button class="btn-favorite active" onclick="toggleFavorite(this, 8)" title="Remover dos favoritos">❤️</button>
+                    <div class="favorite-image"></div>
+                    <div class="favorite-content">
+                        <span class="favorite-category">Arte</span>
+                        <h3>Pack de Assets para Jogos</h3>
+                        <p class="favorite-seller">Game Art Studio</p>
+                        <div class="favorite-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span class="rating-text">5.0 (124)</span>
+                        </div>
+                        <div class="favorite-features">
+                            <span class="feature-tag">2D + 3D</span>
+                            <span class="feature-tag">Licença comercial</span>
+                        </div>
+                        <div class="favorite-footer">
+                            <span class="favorite-price">R$ 129,90</span>
+                            <button class="btn btn-primary btn-small" onclick="addToCart(8)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty state -->
+            <div class="favorites-empty" style="display: none;">
+                <div class="empty-icon">💙</div>
+                <h3>Nenhum favorito ainda</h3>
+                <p>Explore produtos e clique no ❤️ para salvá-los aqui</p>
+                <a href="explorar.html" class="btn btn-primary">Explorar Produtos</a>
+            </div>
+
+            <!-- Actions -->
+            <div class="favorites-bulk-actions">
+                <button class="btn btn-secondary" onclick="addAllToCart()">Adicionar Todos ao Carrinho</button>
+                <button class="btn btn-secondary" onclick="clearFavorites()">Limpar Favoritos</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function toggleFavorite(button, productId) {
+            const card = button.closest('.favorite-card');
+            button.classList.toggle('active');
+            
+            if (!button.classList.contains('active')) {
+                card.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    card.remove();
+                    updateFavoritesCount();
+                    checkIfEmpty();
+                }, 300);
+                showToast('Removido dos favoritos');
+            }
+        }
+
+        function filterFavorites(category) {
+            // Remove active from all filters
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active to clicked filter
+            event.target.classList.add('active');
+            
+            // Filter cards
+            const cards = document.querySelectorAll('.favorite-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function sortFavorites(sortType) {
+            const grid = document.querySelector('.favorites-grid');
+            const cards = Array.from(document.querySelectorAll('.favorite-card'));
+            
+            cards.sort((a, b) => {
+                switch(sortType) {
+                    case 'price-low':
+                        return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                    case 'price-high':
+                        return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                    case 'name':
+                        return a.dataset.name.localeCompare(b.dataset.name);
+                    default:
+                        return 0;
+                }
+            });
+            
+            cards.forEach(card => grid.appendChild(card));
+        }
+
+        function updateFavoritesCount() {
+            const count = document.querySelectorAll('.favorite-card').length;
+            document.getElementById('favorites-count').textContent = `${count} ${count === 1 ? 'produto' : 'produtos'}`;
+        }
+
+        function checkIfEmpty() {
+            const count = document.querySelectorAll('.favorite-card').length;
+            if (count === 0) {
+                document.querySelector('.favorites-grid').style.display = 'none';
+                document.querySelector('.favorites-bulk-actions').style.display = 'none';
+                document.querySelector('.favorites-empty').style.display = 'block';
+            }
+        }
+
+        function addToCart(productId) {
+            showToast('Produto adicionado ao carrinho!');
+        }
+
+        function addAllToCart() {
+            const count = document.querySelectorAll('.favorite-card').length;
+            showToast(`${count} produtos adicionados ao carrinho!`);
+        }
+
+        function clearFavorites() {
+            if (confirm('Deseja remover todos os favoritos?')) {
+                document.querySelectorAll('.favorite-card').forEach(card => {
+                    card.style.animation = 'fadeOut 0.3s ease';
+                });
+                setTimeout(() => {
+                    document.querySelector('.favorites-grid').innerHTML = '';
+                    updateFavoritesCount();
+                    checkIfEmpty();
+                }, 300);
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

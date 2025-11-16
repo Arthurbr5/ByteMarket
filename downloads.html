@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Downloads - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="downloads-section">
+        <div class="container">
+            <div class="page-header-simple">
+                <h2>Meus Downloads</h2>
+                <p>Acesse todos os produtos que você comprou</p>
+            </div>
+
+            <div class="downloads-filters">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterDownloads('all')">Todos</button>
+                    <button class="filter-tab" onclick="filterDownloads('recent')">Recentes</button>
+                    <button class="filter-tab" onclick="filterDownloads('scripts')">Scripts</button>
+                    <button class="filter-tab" onclick="filterDownloads('bots')">Bots</button>
+                    <button class="filter-tab" onclick="filterDownloads('cursos')">Cursos</button>
+                </div>
+                <div class="search-bar-simple">
+                    <input type="text" placeholder="Buscar nos meus produtos...">
+                </div>
+            </div>
+
+            <div class="downloads-grid">
+                <!-- Download Item 1 -->
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-image"></div>
+                        <div class="download-status">
+                            <span class="badge badge-success">Disponível</span>
+                        </div>
+                    </div>
+                    <div class="download-body">
+                        <h3>Bot de Automação Premium</h3>
+                        <p class="download-seller">Vendedor: João Silva</p>
+                        <p class="download-date">Comprado em: 13/11/2025</p>
+                        
+                        <div class="download-info">
+                            <div class="info-item">
+                                <span>📦</span>
+                                <span>Tamanho: 45 MB</span>
+                            </div>
+                            <div class="info-item">
+                                <span>🔄</span>
+                                <span>Versão: 2.1.0</span>
+                            </div>
+                            <div class="info-item">
+                                <span>💾</span>
+                                <span>Formato: .zip</span>
+                            </div>
+                        </div>
+
+                        <div class="download-actions">
+                            <button class="btn btn-primary btn-block">
+                                ⬇️ Baixar Agora
+                            </button>
+                            <div class="secondary-actions">
+                                <button class="btn-icon" title="Ver Documentação">📖</button>
+                                <button class="btn-icon" title="Acessar Link">🔗</button>
+                                <button class="btn-icon" title="Suporte">💬</button>
+                            </div>
+                        </div>
+
+                        <div class="download-updates">
+                            <p class="update-notice">✓ Atualizações incluídas até 13/11/2026</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Item 2 -->
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-image"></div>
+                        <div class="download-status">
+                            <span class="badge badge-success">Disponível</span>
+                        </div>
+                    </div>
+                    <div class="download-body">
+                        <h3>Curso Completo de Python</h3>
+                        <p class="download-seller">Vendedor: Ana Costa</p>
+                        <p class="download-date">Comprado em: 13/11/2025</p>
+                        
+                        <div class="download-info">
+                            <div class="info-item">
+                                <span>🎥</span>
+                                <span>120 vídeos</span>
+                            </div>
+                            <div class="info-item">
+                                <span>⏱️</span>
+                                <span>40 horas</span>
+                            </div>
+                            <div class="info-item">
+                                <span>📄</span>
+                                <span>PDF + Exercícios</span>
+                            </div>
+                        </div>
+
+                        <div class="download-actions">
+                            <button class="btn btn-primary btn-block">
+                                🎓 Acessar Curso
+                            </button>
+                            <div class="secondary-actions">
+                                <button class="btn-icon" title="Certificado">🏆</button>
+                                <button class="btn-icon" title="Material Extra">📚</button>
+                                <button class="btn-icon" title="Suporte">💬</button>
+                            </div>
+                        </div>
+
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%"></div>
+                            </div>
+                            <p class="progress-text">35% concluído • 42/120 aulas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Item 3 -->
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-image"></div>
+                        <div class="download-status">
+                            <span class="badge badge-warning">Atualização</span>
+                        </div>
+                    </div>
+                    <div class="download-body">
+                        <h3>Script de Integração API</h3>
+                        <p class="download-seller">Vendedor: Carlos Mendes</p>
+                        <p class="download-date">Comprado em: 05/11/2025</p>
+                        
+                        <div class="download-info">
+                            <div class="info-item">
+                                <span>📦</span>
+                                <span>Tamanho: 2.8 MB</span>
+                            </div>
+                            <div class="info-item">
+                                <span>🔄</span>
+                                <span>Versão: 1.5.3</span>
+                            </div>
+                            <div class="info-item">
+                                <span>💾</span>
+                                <span>Formato: .py</span>
+                            </div>
+                        </div>
+
+                        <div class="update-banner">
+                            <p>🎉 Nova versão 1.6.0 disponível!</p>
+                            <button class="btn btn-small">Atualizar</button>
+                        </div>
+
+                        <div class="download-actions">
+                            <button class="btn btn-primary btn-block">
+                                ⬇️ Baixar v1.5.3
+                            </button>
+                            <div class="secondary-actions">
+                                <button class="btn-icon" title="Changelog">📝</button>
+                                <button class="btn-icon" title="GitHub">🐙</button>
+                                <button class="btn-icon" title="Suporte">💬</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Item 4 -->
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="download-image"></div>
+                        <div class="download-status">
+                            <span class="badge badge-success">Disponível</span>
+                        </div>
+                    </div>
+                    <div class="download-body">
+                        <h3>Pack de Assets para Jogos</h3>
+                        <p class="download-seller">Vendedor: Maria Santos</p>
+                        <p class="download-date">Comprado em: 28/10/2025</p>
+                        
+                        <div class="download-info">
+                            <div class="info-item">
+                                <span>🎨</span>
+                                <span>500+ arquivos</span>
+                            </div>
+                            <div class="info-item">
+                                <span>📦</span>
+                                <span>156 MB</span>
+                            </div>
+                            <div class="info-item">
+                                <span>💾</span>
+                                <span>PNG + SVG</span>
+                            </div>
+                        </div>
+
+                        <div class="download-actions">
+                            <button class="btn btn-primary btn-block">
+                                ⬇️ Baixar Pack Completo
+                            </button>
+                            <div class="secondary-actions">
+                                <button class="btn-icon" title="Preview">👁️</button>
+                                <button class="btn-icon" title="Licença">📜</button>
+                                <button class="btn-icon" title="Suporte">💬</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download History -->
+            <div class="download-history-section">
+                <h3>Histórico de Downloads</h3>
+                <div class="history-card">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Data</th>
+                                <th>Versão</th>
+                                <th>Tamanho</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bot de Automação Premium</td>
+                                <td>13/11/2025 14:32</td>
+                                <td>2.1.0</td>
+                                <td>45 MB</td>
+                                <td><button class="btn btn-small">Baixar Novamente</button></td>
+                            </tr>
+                            <tr>
+                                <td>Script de Integração API</td>
+                                <td>12/11/2025 09:15</td>
+                                <td>1.5.3</td>
+                                <td>2.8 MB</td>
+                                <td><button class="btn btn-small">Baixar Novamente</button></td>
+                            </tr>
+                            <tr>
+                                <td>Script de Integração API</td>
+                                <td>05/11/2025 16:47</td>
+                                <td>1.5.2</td>
+                                <td>2.7 MB</td>
+                                <td><button class="btn btn-small btn-secondary">Versão Antiga</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Support Section -->
+            <div class="support-section">
+                <div class="support-card">
+                    <h3>Precisa de Ajuda?</h3>
+                    <div class="support-options">
+                        <div class="support-option">
+                            <span class="support-icon">📖</span>
+                            <h4>Documentação</h4>
+                            <p>Guias e tutoriais completos</p>
+                            <button class="btn btn-small">Acessar</button>
+                        </div>
+                        <div class="support-option">
+                            <span class="support-icon">💬</span>
+                            <h4>Suporte Direto</h4>
+                            <p>Fale com o vendedor</p>
+                            <button class="btn btn-small">Abrir Chat</button>
+                        </div>
+                        <div class="support-option">
+                            <span class="support-icon">🎫</span>
+                            <h4>Abrir Ticket</h4>
+                            <p>Suporte técnico ByteMarket</p>
+                            <button class="btn btn-small">Criar Ticket</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function filterDownloads(category) {
+            // Remove active from all tabs
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Add active to clicked tab
+            event.target.classList.add('active');
+            
+            console.log('Filtering by:', category);
+            // Aqui você implementaria a lógica real de filtro
+        }
+    </script>
+</body>
+</html>

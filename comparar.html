@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar Produtos - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="compare-section">
+        <div class="container">
+            <div class="page-header-simple">
+                <h2>Comparar Produtos</h2>
+                <p>Compare especificações, preços e recursos lado a lado</p>
+            </div>
+
+            <div class="compare-add-section">
+                <button class="btn btn-primary" onclick="openProductSelector()">
+                    + Adicionar Produto para Comparar
+                </button>
+                <p class="compare-hint">Você pode comparar até 4 produtos simultaneamente</p>
+            </div>
+
+            <div class="comparison-table">
+                <!-- Header Row -->
+                <div class="compare-header-row">
+                    <div class="compare-cell header-cell">Característica</div>
+                    <div class="compare-cell product-header">
+                        <div class="product-header-image"></div>
+                        <h4>Bot de Automação Premium</h4>
+                        <p class="product-seller">João Silva</p>
+                        <p class="product-price">R$ 199,90</p>
+                        <div class="product-rating">⭐ 4.9 (156)</div>
+                        <button class="btn-remove-product" onclick="removeProduct(1)">Remover</button>
+                    </div>
+                    <div class="compare-cell product-header">
+                        <div class="product-header-image"></div>
+                        <h4>Bot Multi-Task Pro</h4>
+                        <p class="product-seller">Maria Costa</p>
+                        <p class="product-price">R$ 249,90</p>
+                        <div class="product-rating">⭐ 4.7 (89)</div>
+                        <button class="btn-remove-product" onclick="removeProduct(2)">Remover</button>
+                    </div>
+                    <div class="compare-cell product-header">
+                        <div class="product-header-image"></div>
+                        <h4>Bot Starter Edition</h4>
+                        <p class="product-seller">Carlos Mendes</p>
+                        <p class="product-price">R$ 99,90</p>
+                        <div class="product-rating">⭐ 4.5 (42)</div>
+                        <button class="btn-remove-product" onclick="removeProduct(3)">Remover</button>
+                    </div>
+                </div>
+
+                <!-- Category: Preço -->
+                <div class="compare-category">Preço e Planos</div>
+                
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Preço único</div>
+                    <div class="compare-cell">R$ 199,90</div>
+                    <div class="compare-cell highlight">R$ 249,90</div>
+                    <div class="compare-cell best">R$ 99,90</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Atualizações</div>
+                    <div class="compare-cell">✓ Vitalícias</div>
+                    <div class="compare-cell highlight">✓ Vitalícias</div>
+                    <div class="compare-cell">✓ 1 ano</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Suporte</div>
+                    <div class="compare-cell">✓ 6 meses</div>
+                    <div class="compare-cell highlight">✓ Vitalício</div>
+                    <div class="compare-cell">✓ 3 meses</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Licença</div>
+                    <div class="compare-cell">✓ Comercial</div>
+                    <div class="compare-cell highlight">✓ Comercial</div>
+                    <div class="compare-cell">✗ Pessoal</div>
+                </div>
+
+                <!-- Category: Recursos -->
+                <div class="compare-category">Recursos</div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Automação de tarefas</div>
+                    <div class="compare-cell">✓ Sim</div>
+                    <div class="compare-cell highlight">✓ Sim</div>
+                    <div class="compare-cell">✓ Sim</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Multi-threading</div>
+                    <div class="compare-cell">✓ Sim</div>
+                    <div class="compare-cell highlight">✓ Sim</div>
+                    <div class="compare-cell">✗ Não</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">API Integration</div>
+                    <div class="compare-cell">✓ Sim</div>
+                    <div class="compare-cell highlight">✓ Avançada</div>
+                    <div class="compare-cell">✗ Não</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Agendamento</div>
+                    <div class="compare-cell">✓ Básico</div>
+                    <div class="compare-cell highlight">✓ Avançado</div>
+                    <div class="compare-cell">✗ Não</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Logs detalhados</div>
+                    <div class="compare-cell">✓ Sim</div>
+                    <div class="compare-cell highlight">✓ Sim</div>
+                    <div class="compare-cell">✓ Básico</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Interface gráfica</div>
+                    <div class="compare-cell">✓ Moderna</div>
+                    <div class="compare-cell highlight">✓ Premium</div>
+                    <div class="compare-cell">✓ Simples</div>
+                </div>
+
+                <!-- Category: Performance -->
+                <div class="compare-category">Performance</div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Velocidade</div>
+                    <div class="compare-cell">Alta</div>
+                    <div class="compare-cell highlight">Muito Alta</div>
+                    <div class="compare-cell">Média</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Consumo de memória</div>
+                    <div class="compare-cell">Médio (150MB)</div>
+                    <div class="compare-cell">Alto (300MB)</div>
+                    <div class="compare-cell best">Baixo (80MB)</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Limite de execuções/dia</div>
+                    <div class="compare-cell">1000</div>
+                    <div class="compare-cell highlight">Ilimitado</div>
+                    <div class="compare-cell">100</div>
+                </div>
+
+                <!-- Category: Compatibilidade -->
+                <div class="compare-category">Compatibilidade</div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Windows</div>
+                    <div class="compare-cell">✓ 10/11</div>
+                    <div class="compare-cell highlight">✓ 7/10/11</div>
+                    <div class="compare-cell">✓ 10/11</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Linux</div>
+                    <div class="compare-cell">✓ Sim</div>
+                    <div class="compare-cell highlight">✓ Sim</div>
+                    <div class="compare-cell">✗ Não</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">MacOS</div>
+                    <div class="compare-cell">✓ Sim</div>
+                    <div class="compare-cell highlight">✓ Sim</div>
+                    <div class="compare-cell">✗ Não</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Python</div>
+                    <div class="compare-cell">✓ 3.8+</div>
+                    <div class="compare-cell highlight">✓ 3.7+</div>
+                    <div class="compare-cell">✓ 3.9+</div>
+                </div>
+
+                <!-- Category: Extras -->
+                <div class="compare-category">Extras</div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Documentação</div>
+                    <div class="compare-cell">✓ Completa</div>
+                    <div class="compare-cell highlight">✓ Completa + Vídeos</div>
+                    <div class="compare-cell">✓ Básica</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Exemplos incluídos</div>
+                    <div class="compare-cell">10</div>
+                    <div class="compare-cell highlight">25+</div>
+                    <div class="compare-cell">5</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Comunidade</div>
+                    <div class="compare-cell">✓ Discord</div>
+                    <div class="compare-cell highlight">✓ Discord + Telegram</div>
+                    <div class="compare-cell">✗ Não</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="compare-cell feature-name">Código-fonte</div>
+                    <div class="compare-cell">✗ Não</div>
+                    <div class="compare-cell highlight">✓ Sim</div>
+                    <div class="compare-cell">✗ Não</div>
+                </div>
+
+                <!-- Action Row -->
+                <div class="compare-row action-row">
+                    <div class="compare-cell feature-name"></div>
+                    <div class="compare-cell">
+                        <button class="btn btn-primary btn-block" onclick="viewProduct(1)">Ver Detalhes</button>
+                        <button class="btn btn-secondary btn-block" onclick="addToCart(1)">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="compare-cell">
+                        <button class="btn btn-primary btn-block" onclick="viewProduct(2)">Ver Detalhes</button>
+                        <button class="btn btn-secondary btn-block" onclick="addToCart(2)">Adicionar ao Carrinho</button>
+                    </div>
+                    <div class="compare-cell">
+                        <button class="btn btn-primary btn-block" onclick="viewProduct(3)">Ver Detalhes</button>
+                        <button class="btn btn-secondary btn-block" onclick="addToCart(3)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Winner Summary -->
+            <div class="winner-summary">
+                <h3>Resumo da Comparação</h3>
+                <div class="winner-cards">
+                    <div class="winner-card">
+                        <span class="winner-icon">💰</span>
+                        <h4>Melhor Custo-Benefício</h4>
+                        <p>Bot Starter Edition</p>
+                        <span class="winner-price">R$ 99,90</span>
+                    </div>
+                    <div class="winner-card">
+                        <span class="winner-icon">⭐</span>
+                        <h4>Mais Recursos</h4>
+                        <p>Bot Multi-Task Pro</p>
+                        <span class="winner-features">25+ exemplos, código-fonte</span>
+                    </div>
+                    <div class="winner-card">
+                        <span class="winner-icon">🏆</span>
+                        <h4>Melhor Avaliado</h4>
+                        <p>Bot de Automação Premium</p>
+                        <span class="winner-rating">⭐ 4.9 (156 avaliações)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function openProductSelector() {
+            alert('Aqui abriria um modal para selecionar produtos para adicionar à comparação');
+        }
+
+        function removeProduct(id) {
+            if (confirm('Remover este produto da comparação?')) {
+                // Aqui você implementaria a remoção do produto
+                showToast('Produto removido da comparação');
+            }
+        }
+
+        function viewProduct(id) {
+            window.location.href = `produto.html?id=${id}`;
+        }
+
+        function addToCart(id) {
+            showToast('Produto adicionado ao carrinho!');
+            // Aqui você implementaria a adição ao carrinho
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

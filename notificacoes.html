@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="notifications-section">
+        <div class="container">
+            <div class="notifications-header">
+                <h2>Notificações</h2>
+                <div class="notifications-actions">
+                    <button class="btn btn-secondary" onclick="markAllAsRead()">Marcar todas como lidas</button>
+                    <button class="btn btn-secondary" onclick="clearAll()">Limpar tudo</button>
+                </div>
+            </div>
+
+            <div class="notifications-filters">
+                <button class="notification-filter active" onclick="filterNotifications('all')">
+                    Todas <span class="count-badge">12</span>
+                </button>
+                <button class="notification-filter" onclick="filterNotifications('vendas')">
+                    Vendas <span class="count-badge">4</span>
+                </button>
+                <button class="notification-filter" onclick="filterNotifications('mensagens')">
+                    Mensagens <span class="count-badge">3</span>
+                </button>
+                <button class="notification-filter" onclick="filterNotifications('atualizacoes')">
+                    Atualizações <span class="count-badge">2</span>
+                </button>
+                <button class="notification-filter" onclick="filterNotifications('sistema')">
+                    Sistema <span class="count-badge">3</span>
+                </button>
+            </div>
+
+            <div class="notifications-list">
+                <!-- Notification 1 - New Sale -->
+                <div class="notification-item unread" data-type="vendas">
+                    <div class="notification-icon sale">💰</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Nova venda realizada!</div>
+                        <div class="notification-description">
+                            <strong>João Silva</strong> comprou <strong>Bot de Automação Premium</strong> por <strong>R$ 199,90</strong>
+                        </div>
+                        <div class="notification-time">5 minutos atrás</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="viewOrder(1)">Ver Pedido</button>
+                        <button class="btn-icon-small" onclick="markAsRead(this)">✓</button>
+                    </div>
+                </div>
+
+                <!-- Notification 2 - New Message -->
+                <div class="notification-item unread" data-type="mensagens">
+                    <div class="notification-icon message">💬</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Nova mensagem de Carlos Pereira</div>
+                        <div class="notification-description">
+                            "O script está funcionando perfeitamente! Obrigado pelo suporte."
+                        </div>
+                        <div class="notification-time">15 minutos atrás</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="openMessage(2)">Responder</button>
+                        <button class="btn-icon-small" onclick="markAsRead(this)">✓</button>
+                    </div>
+                </div>
+
+                <!-- Notification 3 - Product Update -->
+                <div class="notification-item" data-type="atualizacoes">
+                    <div class="notification-icon update">🔄</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Atualização disponível</div>
+                        <div class="notification-description">
+                            <strong>Script de Integração API v1.6.0</strong> está disponível com novas funcionalidades e correções
+                        </div>
+                        <div class="notification-time">1 hora atrás</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="updateProduct(3)">Atualizar</button>
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 4 - Review -->
+                <div class="notification-item unread" data-type="vendas">
+                    <div class="notification-icon review">⭐</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Nova avaliação recebida</div>
+                        <div class="notification-description">
+                            <strong>Maria Santos</strong> avaliou seu produto <strong>Pack de Assets</strong> com 5 estrelas
+                        </div>
+                        <div class="notification-time">2 horas atrás</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="viewReview(4)">Ver Avaliação</button>
+                        <button class="btn-icon-small" onclick="markAsRead(this)">✓</button>
+                    </div>
+                </div>
+
+                <!-- Notification 5 - Payment Received -->
+                <div class="notification-item" data-type="vendas">
+                    <div class="notification-icon payment">💳</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Pagamento confirmado</div>
+                        <div class="notification-description">
+                            Pedido #8472 - R$ 149,90 creditado na sua conta
+                        </div>
+                        <div class="notification-time">3 horas atrás</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="viewBalance()">Ver Saldo</button>
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 6 - System -->
+                <div class="notification-item" data-type="sistema">
+                    <div class="notification-icon system">🔔</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Manutenção programada</div>
+                        <div class="notification-description">
+                            A plataforma passará por manutenção no dia 15/11 das 2h às 4h (horário de Brasília)
+                        </div>
+                        <div class="notification-time">5 horas atrás</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 7 - Message -->
+                <div class="notification-item" data-type="mensagens">
+                    <div class="notification-icon message">💬</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Nova mensagem de Ana Costa</div>
+                        <div class="notification-description">
+                            "Você tem disponibilidade para criar um projeto customizado?"
+                        </div>
+                        <div class="notification-time">Ontem às 18:45</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="openMessage(7)">Responder</button>
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 8 - Sale -->
+                <div class="notification-item" data-type="vendas">
+                    <div class="notification-icon sale">💰</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Venda realizada</div>
+                        <div class="notification-description">
+                            <strong>Pedro Oliveira</strong> comprou <strong>Curso de JavaScript</strong> por <strong>R$ 149,90</strong>
+                        </div>
+                        <div class="notification-time">Ontem às 14:20</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="viewOrder(8)">Ver Pedido</button>
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 9 - Update -->
+                <div class="notification-item" data-type="atualizacoes">
+                    <div class="notification-icon update">🔄</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Produto atualizado com sucesso</div>
+                        <div class="notification-description">
+                            <strong>Bot de Automação Premium</strong> foi atualizado para v2.1.0
+                        </div>
+                        <div class="notification-time">12/11/2025</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 10 - System -->
+                <div class="notification-item" data-type="sistema">
+                    <div class="notification-icon system">🔔</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Nova política de privacidade</div>
+                        <div class="notification-description">
+                            Atualizamos nossa política de privacidade. Revise as mudanças.
+                        </div>
+                        <div class="notification-time">11/11/2025</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="viewPolicy()">Ler Política</button>
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 11 - System -->
+                <div class="notification-item" data-type="sistema">
+                    <div class="notification-icon achievement">🏆</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Conquista desbloqueada!</div>
+                        <div class="notification-description">
+                            Parabéns! Você alcançou <strong>100 vendas</strong> na plataforma
+                        </div>
+                        <div class="notification-time">10/11/2025</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="viewAchievements()">Ver Conquistas</button>
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+
+                <!-- Notification 12 - Message -->
+                <div class="notification-item" data-type="mensagens">
+                    <div class="notification-icon message">💬</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Ricardo Ferreira respondeu</div>
+                        <div class="notification-description">
+                            "Perfeito! Quando podemos começar o projeto?"
+                        </div>
+                        <div class="notification-time">09/11/2025</div>
+                    </div>
+                    <div class="notification-actions">
+                        <button class="btn-small btn-primary" onclick="openMessage(12)">Ver Conversa</button>
+                        <button class="btn-icon-small" onclick="dismissNotification(this)">✕</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty state -->
+            <div class="notifications-empty" style="display: none;">
+                <div class="empty-icon">🔔</div>
+                <h3>Sem notificações</h3>
+                <p>Você está em dia! Não há notificações pendentes.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function filterNotifications(type) {
+            // Remove active from all filters
+            document.querySelectorAll('.notification-filter').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active to clicked filter
+            event.target.classList.add('active');
+            
+            // Filter notifications
+            const notifications = document.querySelectorAll('.notification-item');
+            let visibleCount = 0;
+            
+            notifications.forEach(notif => {
+                if (type === 'all' || notif.dataset.type === type) {
+                    notif.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    notif.style.display = 'none';
+                }
+            });
+            
+            // Show empty state if no notifications
+            document.querySelector('.notifications-empty').style.display = 
+                visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function markAsRead(button) {
+            const notification = button.closest('.notification-item');
+            notification.classList.remove('unread');
+            showToast('Marcado como lido');
+        }
+
+        function markAllAsRead() {
+            document.querySelectorAll('.notification-item.unread').forEach(notif => {
+                notif.classList.remove('unread');
+            });
+            showToast('Todas as notificações foram marcadas como lidas');
+        }
+
+        function dismissNotification(button) {
+            const notification = button.closest('.notification-item');
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                notification.remove();
+                checkIfEmpty();
+            }, 300);
+        }
+
+        function clearAll() {
+            if (confirm('Deseja limpar todas as notificações?')) {
+                document.querySelectorAll('.notification-item').forEach(notif => {
+                    notif.style.animation = 'slideOut 0.3s ease';
+                });
+                setTimeout(() => {
+                    document.querySelectorAll('.notification-item').forEach(notif => {
+                        notif.remove();
+                    });
+                    document.querySelector('.notifications-empty').style.display = 'block';
+                }, 300);
+            }
+        }
+
+        function checkIfEmpty() {
+            const notifications = document.querySelectorAll('.notification-item');
+            const activeFilter = document.querySelector('.notification-filter.active').textContent.includes('Todas') 
+                ? 'all' 
+                : document.querySelector('.notification-filter.active').textContent.toLowerCase();
+            
+            let visibleCount = 0;
+            notifications.forEach(notif => {
+                if (notif.style.display !== 'none') visibleCount++;
+            });
+            
+            document.querySelector('.notifications-empty').style.display = 
+                visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function viewOrder(id) {
+            window.location.href = `painel.html?order=${id}`;
+        }
+
+        function openMessage(id) {
+            window.location.href = `mensagens.html?conversation=${id}`;
+        }
+
+        function updateProduct(id) {
+            showToast('Atualizando produto...');
+        }
+
+        function viewReview(id) {
+            showToast('Abrindo avaliação...');
+        }
+
+        function viewBalance() {
+            window.location.href = 'painel.html?tab=balance';
+        }
+
+        function viewPolicy() {
+            window.open('/privacy-policy', '_blank');
+        }
+
+        function viewAchievements() {
+            window.location.href = 'painel.html?tab=achievements';
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

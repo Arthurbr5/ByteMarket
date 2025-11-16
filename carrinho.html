@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="vender.html">Vender</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="cart-section">
+        <div class="container">
+            <div class="page-header-simple">
+                <h2>Carrinho de Compras</h2>
+                <p>Você tem <span id="cart-count">3 itens</span> no carrinho</p>
+            </div>
+
+            <div class="cart-layout">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <!-- Cart Item 1 -->
+                    <div class="cart-item" data-product-id="1">
+                        <div class="cart-item-image"></div>
+                        <div class="cart-item-details">
+                            <h3>Bot de Automação Premium</h3>
+                            <p class="cart-item-seller">Vendedor: João Silva</p>
+                            <div class="cart-item-features">
+                                <span class="feature-badge">✓ Atualizações vitalícias</span>
+                                <span class="feature-badge">✓ Suporte incluído</span>
+                                <span class="feature-badge">✓ Licença comercial</span>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">
+                            <span class="price-label">Preço</span>
+                            <span class="price-value">R$ 199,90</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="btn-icon-remove" onclick="removeItem(1)" title="Remover">🗑️</button>
+                        </div>
+                    </div>
+
+                    <!-- Cart Item 2 -->
+                    <div class="cart-item" data-product-id="2">
+                        <div class="cart-item-image"></div>
+                        <div class="cart-item-details">
+                            <h3>Script de Web Scraping</h3>
+                            <p class="cart-item-seller">Vendedor: Maria Santos</p>
+                            <div class="cart-item-features">
+                                <span class="feature-badge">✓ Código-fonte incluído</span>
+                                <span class="feature-badge">✓ Documentação completa</span>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">
+                            <span class="price-label">Preço</span>
+                            <span class="price-value">R$ 49,90</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="btn-icon-remove" onclick="removeItem(2)" title="Remover">🗑️</button>
+                        </div>
+                    </div>
+
+                    <!-- Cart Item 3 -->
+                    <div class="cart-item" data-product-id="3">
+                        <div class="cart-item-image"></div>
+                        <div class="cart-item-details">
+                            <h3>Curso Completo de JavaScript</h3>
+                            <p class="cart-item-seller">Vendedor: Ana Costa</p>
+                            <div class="cart-item-features">
+                                <span class="feature-badge">✓ 80 vídeos</span>
+                                <span class="feature-badge">✓ Certificado</span>
+                                <span class="feature-badge">✓ Projetos práticos</span>
+                            </div>
+                        </div>
+                        <div class="cart-item-price">
+                            <span class="price-label">Preço</span>
+                            <span class="price-value">R$ 149,90</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="btn-icon-remove" onclick="removeItem(3)" title="Remover">🗑️</button>
+                        </div>
+                    </div>
+
+                    <!-- Empty Cart Message (hidden by default) -->
+                    <div id="empty-cart" class="empty-cart" style="display: none;">
+                        <div class="empty-icon">🛒</div>
+                        <h3>Seu carrinho está vazio</h3>
+                        <p>Explore nosso catálogo e adicione produtos ao carrinho</p>
+                        <a href="explorar.html" class="btn btn-primary">Explorar Produtos</a>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h3>Resumo do Pedido</h3>
+                    
+                    <div class="summary-line">
+                        <span>Subtotal (3 itens)</span>
+                        <span id="subtotal">R$ 399,70</span>
+                    </div>
+                    
+                    <div class="coupon-section">
+                        <input type="text" id="coupon-input" placeholder="Código do cupom">
+                        <button class="btn btn-secondary btn-small" onclick="applyCoupon()">Aplicar</button>
+                        <p class="coupon-message" id="coupon-message"></p>
+                    </div>
+
+                    <div class="summary-line discount-line" id="discount-line" style="display: none;">
+                        <span>Desconto</span>
+                        <span class="discount-value" id="discount">- R$ 0,00</span>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-line total-line">
+                        <span>Total</span>
+                        <span id="total">R$ 399,70</span>
+                    </div>
+
+                    <button class="btn btn-primary btn-block btn-large" onclick="proceedToCheckout()">
+                        Finalizar Compra
+                    </button>
+
+                    <div class="payment-methods">
+                        <p>Aceitamos:</p>
+                        <div class="payment-icons">
+                            <span>💳</span>
+                            <span>📱</span>
+                            <span>🏦</span>
+                        </div>
+                        <p class="payment-text">Cartão, PIX e Boleto</p>
+                    </div>
+
+                    <div class="security-badges">
+                        <div class="badge-item">
+                            <span>🔒</span>
+                            <span>Compra Segura</span>
+                        </div>
+                        <div class="badge-item">
+                            <span>✓</span>
+                            <span>Garantia de 7 dias</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended Products -->
+            <div class="recommended-section">
+                <h3>Você também pode gostar</h3>
+                <div class="recommended-grid">
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h4>Bot de Trading</h4>
+                            <p class="product-price">R$ 299,90</p>
+                            <button class="btn btn-small btn-primary" onclick="addToCart(4)">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h4>Template de Website</h4>
+                            <p class="product-price">R$ 79,90</p>
+                            <button class="btn btn-small btn-primary" onclick="addToCart(5)">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h4>Pack de Ícones Pro</h4>
+                            <p class="product-price">R$ 39,90</p>
+                            <button class="btn btn-small btn-primary" onclick="addToCart(6)">Adicionar</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image"></div>
+                        <div class="product-info">
+                            <h4>Curso de Python</h4>
+                            <p class="product-price">R$ 179,90</p>
+                            <button class="btn btn-small btn-primary" onclick="addToCart(7)">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let cartItems = [
+            { id: 1, name: 'Bot de Automação Premium', price: 199.90 },
+            { id: 2, name: 'Script de Web Scraping', price: 49.90 },
+            { id: 3, name: 'Curso Completo de JavaScript', price: 149.90 }
+        ];
+
+        let discountPercent = 0;
+
+        function updateCart() {
+            const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+            const discount = subtotal * (discountPercent / 100);
+            const total = subtotal - discount;
+
+            document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('cart-count').textContent = `${cartItems.length} ${cartItems.length === 1 ? 'item' : 'itens'}`;
+
+            if (discountPercent > 0) {
+                document.getElementById('discount-line').style.display = 'flex';
+                document.getElementById('discount').textContent = `- R$ ${discount.toFixed(2).replace('.', ',')}`;
+            }
+
+            // Show empty cart if no items
+            if (cartItems.length === 0) {
+                document.querySelector('.cart-items').style.display = 'none';
+                document.getElementById('empty-cart').style.display = 'block';
+                document.querySelector('.cart-summary').style.display = 'none';
+            }
+        }
+
+        function removeItem(productId) {
+            if (confirm('Deseja remover este item do carrinho?')) {
+                cartItems = cartItems.filter(item => item.id !== productId);
+                document.querySelector(`[data-product-id="${productId}"]`).remove();
+                updateCart();
+                
+                // Show notification
+                showNotification('Item removido do carrinho');
+            }
+        }
+
+        function addToCart(productId) {
+            showNotification('Produto adicionado ao carrinho!');
+            // Aqui você implementaria a lógica real de adicionar ao carrinho
+        }
+
+        function applyCoupon() {
+            const couponInput = document.getElementById('coupon-input');
+            const couponMessage = document.getElementById('coupon-message');
+            const couponCode = couponInput.value.toUpperCase();
+
+            // Cupons de exemplo
+            const coupons = {
+                'BEMVINDO10': { discount: 10, message: 'Cupom aplicado! 10% de desconto' },
+                'PROMO20': { discount: 20, message: 'Cupom aplicado! 20% de desconto' },
+                'VIP30': { discount: 30, message: 'Cupom VIP aplicado! 30% de desconto' }
+            };
+
+            if (coupons[couponCode]) {
+                discountPercent = coupons[couponCode].discount;
+                couponMessage.textContent = coupons[couponCode].message;
+                couponMessage.className = 'coupon-message success';
+                updateCart();
+            } else if (couponCode === '') {
+                couponMessage.textContent = 'Digite um código de cupom';
+                couponMessage.className = 'coupon-message error';
+            } else {
+                couponMessage.textContent = 'Cupom inválido';
+                couponMessage.className = 'coupon-message error';
+            }
+        }
+
+        function proceedToCheckout() {
+            if (cartItems.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #10b981;
+                color: white;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize cart on load
+        updateCart();
+    </script>
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

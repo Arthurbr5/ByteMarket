@@ -1,0 +1,4 @@
+# ByteMarket - Render Deployment
+
+build: npm install
+start: npm start

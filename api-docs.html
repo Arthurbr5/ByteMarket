@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - ByteMarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html"><h1>ByteMarket API</h1></a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="api-docs.html" class="active">API</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="api-hero">
+        <div class="container">
+            <h2>API Pública ByteMarket</h2>
+            <p>Integre o marketplace na sua aplicação</p>
+            <div class="api-version">
+                <span class="badge badge-success">v1.0</span>
+                <span>REST API</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="api-docs-section">
+        <div class="container">
+            <div class="docs-layout">
+                <aside class="docs-sidebar">
+                    <h3>Documentação</h3>
+                    <nav class="docs-nav">
+                        <a href="#intro" class="active">Introdução</a>
+                        <a href="#auth">Autenticação</a>
+                        <a href="#products">Produtos</a>
+                        <a href="#users">Usuários</a>
+                        <a href="#sales">Vendas</a>
+                        <a href="#affiliates">Afiliados</a>
+                        <a href="#webhooks">Webhooks</a>
+                        <a href="#errors">Erros</a>
+                        <a href="#limits">Rate Limits</a>
+                    </nav>
+                </aside>
+
+                <main class="docs-content">
+                    <!-- Introdução -->
+                    <section id="intro" class="doc-section">
+                        <h2>Introdução</h2>
+                        <p>A API do ByteMarket permite que você integre nosso marketplace em sua aplicação. Com ela você pode listar produtos, criar vendas, gerenciar afiliados e muito mais.</p>
+                        
+                        <div class="info-box">
+                            <h4>Base URL</h4>
+                            <code>https://api.bytemarket.com/v1</code>
+                        </div>
+
+                        <div class="info-box">
+                            <h4>Formato</h4>
+                            <p>Todas as requisições e respostas são em JSON</p>
+                        </div>
+                    </section>
+
+                    <!-- Autenticação -->
+                    <section id="auth" class="doc-section">
+                        <h2>Autenticação</h2>
+                        <p>Para usar a API, você precisa de uma chave de API. Gere sua chave no <a href="painel.html">painel de usuário</a>.</p>
+                        
+                        <h3>Header de Autenticação</h3>
+                        <div class="code-block">
+                            <pre>Authorization: Bearer SEU_TOKEN_AQUI</pre>
+                        </div>
+
+                        <h3>Exemplo de Requisição</h3>
+                        <div class="code-block">
+                            <pre>curl -H "Authorization: Bearer SEU_TOKEN" \
+     https://api.bytemarket.com/v1/products</pre>
+                        </div>
+                    </section>
+
+                    <!-- Produtos -->
+                    <section id="products" class="doc-section">
+                        <h2>Produtos</h2>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-get">GET</span>
+                                <span class="endpoint-path">/products</span>
+                            </div>
+                            <p>Lista todos os produtos disponíveis</p>
+
+                            <h4>Parâmetros de Query</h4>
+                            <table class="params-table">
+                                <tr>
+                                    <td><code>category</code></td>
+                                    <td>string</td>
+                                    <td>Filtrar por categoria</td>
+                                </tr>
+                                <tr>
+                                    <td><code>page</code></td>
+                                    <td>number</td>
+                                    <td>Número da página (padrão: 1)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>limit</code></td>
+                                    <td>number</td>
+                                    <td>Itens por página (padrão: 20, máx: 100)</td>
+                                </tr>
+                            </table>
+
+                            <h4>Resposta de Sucesso</h4>
+                            <div class="code-block">
+                                <pre>{
+  "success": true,
+  "data": [
+    {
+      "id": "3891",
+      "title": "Bot de Automação Premium",
+      "category": "bots",
+      "price": 149.90,
+      "rating": 4.9,
+      "sales": 342,
+      "seller": {
+        "id": "1247",
+        "name": "João Silva",
+        "premium": true
+      }
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 20,
+    "total": 3891
+  }
+}</pre>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-get">GET</span>
+                                <span class="endpoint-path">/products/:id</span>
+                            </div>
+                            <p>Obtém detalhes de um produto específico</p>
+
+                            <h4>Resposta de Sucesso</h4>
+                            <div class="code-block">
+                                <pre>{
+  "success": true,
+  "data": {
+    "id": "3891",
+    "title": "Bot de Automação Premium",
+    "description": "Bot completo para WhatsApp...",
+    "category": "bots",
+    "price": 149.90,
+    "rating": 4.9,
+    "reviews_count": 127,
+    "sales": 342,
+    "features": [
+      "Download imediato",
+      "Atualizações gratuitas"
+    ],
+    "seller": {
+      "id": "1247",
+      "name": "João Silva",
+      "premium": true
+    }
+  }
+}</pre>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-post">POST</span>
+                                <span class="endpoint-path">/products</span>
+                            </div>
+                            <p>Cria um novo produto (requer autenticação)</p>
+
+                            <h4>Body da Requisição</h4>
+                            <div class="code-block">
+                                <pre>{
+  "title": "Meu Produto",
+  "description": "Descrição completa",
+  "category": "scripts",
+  "price": 99.90,
+  "tags": ["python", "automation"]
+}</pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Usuários -->
+                    <section id="users" class="doc-section">
+                        <h2>Usuários</h2>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-get">GET</span>
+                                <span class="endpoint-path">/users/:id</span>
+                            </div>
+                            <p>Obtém informações públicas de um usuário</p>
+
+                            <h4>Resposta de Sucesso</h4>
+                            <div class="code-block">
+                                <pre>{
+  "success": true,
+  "data": {
+    "id": "1247",
+    "name": "João Silva",
+    "premium": true,
+    "products_count": 8,
+    "total_sales": 342,
+    "rating": 4.9,
+    "member_since": "2025-10-12"
+  }
+}</pre>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-get">GET</span>
+                                <span class="endpoint-path">/users/me</span>
+                            </div>
+                            <p>Obtém informações do usuário autenticado</p>
+                        </div>
+                    </section>
+
+                    <!-- Vendas -->
+                    <section id="sales" class="doc-section">
+                        <h2>Vendas</h2>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-post">POST</span>
+                                <span class="endpoint-path">/sales</span>
+                            </div>
+                            <p>Cria uma nova venda</p>
+
+                            <h4>Body da Requisição</h4>
+                            <div class="code-block">
+                                <pre>{
+  "product_id": "3891",
+  "buyer_email": "comprador@email.com",
+  "payment_method": "pix",
+  "affiliate_code": "AFI-USER2025" // opcional
+}</pre>
+                            </div>
+
+                            <h4>Resposta de Sucesso</h4>
+                            <div class="code-block">
+                                <pre>{
+  "success": true,
+  "data": {
+    "sale_id": "8934",
+    "product": "Bot de Automação Premium",
+    "amount": 149.90,
+    "status": "pending",
+    "payment_url": "https://pay.bytemarket.com/8934"
+  }
+}</pre>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-get">GET</span>
+                                <span class="endpoint-path">/sales/my-sales</span>
+                            </div>
+                            <p>Lista vendas do usuário autenticado</p>
+                        </div>
+                    </section>
+
+                    <!-- Afiliados -->
+                    <section id="affiliates" class="doc-section">
+                        <h2>Afiliados</h2>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-get">GET</span>
+                                <span class="endpoint-path">/affiliates/stats</span>
+                            </div>
+                            <p>Obtém estatísticas do afiliado autenticado</p>
+
+                            <h4>Resposta de Sucesso</h4>
+                            <div class="code-block">
+                                <pre>{
+  "success": true,
+  "data": {
+    "code": "AFI-USER2025",
+    "clicks": 1247,
+    "sales": 89,
+    "conversion_rate": 7.13,
+    "total_earned": 2847.50,
+    "commission_tier": "advanced"
+  }
+}</pre>
+                            </div>
+                        </div>
+
+                        <div class="endpoint">
+                            <div class="endpoint-header">
+                                <span class="method method-post">POST</span>
+                                <span class="endpoint-path">/affiliates/generate-link</span>
+                            </div>
+                            <p>Gera link de afiliado para um produto</p>
+
+                            <h4>Body da Requisição</h4>
+                            <div class="code-block">
+                                <pre>{
+  "product_id": "3891"
+}</pre>
+                            </div>
+
+                            <h4>Resposta de Sucesso</h4>
+                            <div class="code-block">
+                                <pre>{
+  "success": true,
+  "data": {
+    "short_link": "byte.mk/bot123",
+    "full_link": "https://bytemarket.com/produto/3891?aff=AFI-USER2025"
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Webhooks -->
+                    <section id="webhooks" class="doc-section">
+                        <h2>Webhooks</h2>
+                        <p>Configure webhooks para receber notificações em tempo real sobre eventos importantes.</p>
+
+                        <h3>Eventos Disponíveis</h3>
+                        <ul>
+                            <li><code>sale.created</code> - Nova venda realizada</li>
+                            <li><code>sale.completed</code> - Venda confirmada</li>
+                            <li><code>product.created</code> - Novo produto criado</li>
+                            <li><code>affiliate.sale</code> - Venda via afiliado</li>
+                        </ul>
+
+                        <h3>Payload de Exemplo</h3>
+                        <div class="code-block">
+                            <pre>{
+  "event": "sale.completed",
+  "timestamp": "2025-11-13T10:30:00Z",
+  "data": {
+    "sale_id": "8934",
+    "product_id": "3891",
+    "amount": 149.90,
+    "commission": 7.50
+  }
+}</pre>
+                        </div>
+                    </section>
+
+                    <!-- Erros -->
+                    <section id="errors" class="doc-section">
+                        <h2>Códigos de Erro</h2>
+                        
+                        <table class="params-table">
+                            <tr>
+                                <td><code>400</code></td>
+                                <td>Bad Request</td>
+                                <td>Requisição inválida</td>
+                            </tr>
+                            <tr>
+                                <td><code>401</code></td>
+                                <td>Unauthorized</td>
+                                <td>Token inválido ou ausente</td>
+                            </tr>
+                            <tr>
+                                <td><code>404</code></td>
+                                <td>Not Found</td>
+                                <td>Recurso não encontrado</td>
+                            </tr>
+                            <tr>
+                                <td><code>429</code></td>
+                                <td>Too Many Requests</td>
+                                <td>Rate limit excedido</td>
+                            </tr>
+                            <tr>
+                                <td><code>500</code></td>
+                                <td>Internal Server Error</td>
+                                <td>Erro no servidor</td>
+                            </tr>
+                        </table>
+
+                        <h3>Formato de Erro</h3>
+                        <div class="code-block">
+                            <pre>{
+  "success": false,
+  "error": {
+    "code": "INVALID_TOKEN",
+    "message": "Token de autenticação inválido"
+  }
+}</pre>
+                        </div>
+                    </section>
+
+                    <!-- Rate Limits -->
+                    <section id="limits" class="doc-section">
+                        <h2>Rate Limits</h2>
+                        <p>Limite de requisições por minuto:</p>
+                        
+                        <ul>
+                            <li><strong>Plano Gratuito:</strong> 60 requisições/minuto</li>
+                            <li><strong>Plano Premium:</strong> 300 requisições/minuto</li>
+                            <li><strong>Plano Pro:</strong> 1000 requisições/minuto</li>
+                        </ul>
+
+                        <div class="info-box">
+                            <h4>Headers de Rate Limit</h4>
+                            <pre>X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 45
+X-RateLimit-Reset: 1699891200</pre>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ByteMarket - Todos os direitos reservados</p>
+            <div class="footer-links">
+                <a href="#">Sobre</a>
+                <a href="#">Termos</a>
+                <a href="#">Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth-simple.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
