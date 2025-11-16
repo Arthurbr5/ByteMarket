@@ -551,3 +551,5 @@ Para dúvidas ou negociação:
 ---
 
 **Obrigado pelo interesse! Boa sorte com seu novo marketplace! 🚀**
+#   F o r c e   r e d e p l o y  
+ 
