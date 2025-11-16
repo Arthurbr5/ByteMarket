@@ -1,7 +1,7 @@
 // Mercado Pago - Configuração Frontend
 class MercadoPagoIntegration {
     constructor() {
-        this.publicKey = 'YOUR_PUBLIC_KEY'; // Substitua pela sua chave pública
+        this.publicKey = 'APP_USR-48c776d7-e25f-4ca6-abe7-5b6909e58bb9'; // Public Key do Mercado Pago
         this.mp = null;
         this.init();
     }
