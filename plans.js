@@ -181,6 +181,16 @@ class PlanSystem {
 
     // Calcular valor líquido após taxa
     calculateNetAmount(grossAmount) {
+        // BUG FIX #13: Validar se grossAmount é número válido
+        if (typeof grossAmount !== 'number' || isNaN(grossAmount) || grossAmount <= 0) {
+            return {
+                gross: 0,
+                fee: 0,
+                net: 0,
+                feePercent: 0
+            };
+        }
+        
         const fee = this.getFee();
         const feeAmount = (grossAmount * fee) / 100;
         return {

@@ -325,6 +325,13 @@
 
         const currentUser = app.getCurrentUser();
 
+        // Função para escapar HTML e prevenir XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // Carregar produtos comprados
         function loadPurchasedProducts() {
             const allProducts = JSON.parse(localStorage.getItem('bytemarket_products') || '[]');
@@ -361,9 +368,9 @@
                         </div>
                     </div>
                     <div class="download-body">
-                        <h3>${product.title}</h3>
-                        <p class="download-seller">Vendedor: ${product.seller}</p>
-                        <p class="download-date">Publicado em: ${new Date(product.createdAt).toLocaleDateString('pt-BR')}</p>
+                        <h3>${escapeHtml(product.title)}</h3>
+                        <p class="download-seller">Vendedor: ${escapeHtml(product.seller || 'ByteMarket')}</p>
+                        <p class="download-date">Publicado em: ${product.createdAt ? new Date(product.createdAt).toLocaleDateString('pt-BR') : 'Data não disponível'}</p>
                         
                         <div class="download-info">
                             <div class="info-item">
@@ -372,11 +379,11 @@
                             </div>
                             <div class="info-item">
                                 <span>💰</span>
-                                <span>R$ ${product.price.toFixed(2)}</span>
+                                <span>R$ ${product.price && typeof product.price === 'number' ? product.price.toFixed(2) : '0.00'}</span>
                             </div>
                             <div class="info-item">
                                 <span>📁</span>
-                                <span>${product.category}</span>
+                                <span>${escapeHtml(product.category || 'Sem categoria')}</span>
                             </div>
                         </div>
 
@@ -416,6 +423,13 @@
             const modal = document.createElement('div');
             modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 2rem;';
             
+            // Escapar dados antes de inserir no HTML
+            const safeFiles = product.files.map(file => ({
+                id: escapeHtml(file.id),
+                filename: escapeHtml(file.filename),
+                size: file.size
+            }));
+            
             modal.innerHTML = `
                 <div style="background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 80vh; overflow: auto; padding: 2rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
@@ -424,7 +438,7 @@
                     </div>
                     <p style="color: #6b7280; margin-bottom: 1.5rem;">Selecione os arquivos que deseja baixar:</p>
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        ${product.files.map(file => `
+                        ${safeFiles.map(file => `
                             <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;">
                                 <div style="display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0;">
                                     <span style="font-size: 2rem;">📄</span>
@@ -440,7 +454,7 @@
                         `).join('')}
                     </div>
                     <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
-                        <button onclick="downloadAllFiles('${productId}')" class="btn btn-primary btn-block">
+                        <button onclick="downloadAllFiles('${escapeHtml(productId)}')" class="btn btn-primary btn-block">
                             📦 Baixar Todos (${product.files.length} arquivos)
                         </button>
                     </div>
@@ -453,6 +467,11 @@
         // Download de arquivo individual
         window.downloadFile = async function(fileId, filename) {
             try {
+                if (!fileId || !filename) {
+                    showMessage('❌ Informações do arquivo inválidas', 'error');
+                    return;
+                }
+                
                 showMessage('📥 Iniciando download...', 'info');
                 
                 const url = `${BACKEND_URL}/api/download/${fileId}?userId=${currentUser.id}`;

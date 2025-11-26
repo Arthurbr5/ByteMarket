@@ -475,7 +475,7 @@
                 type: document.getElementById('productType').value,
                 title: document.getElementById('productTitle').value,
                 description: document.getElementById('productDescription').value,
-                price: parseFloat(document.getElementById('productPrice').value),
+                price: parseFloat(document.getElementById('productPrice').value) || 0,
                 category: document.getElementById('productCategory').value,
                 tags: document.getElementById('productTags').value,
                 demo: document.getElementById('productDemo').value,
@@ -490,6 +490,12 @@
                 status: 'active'
             };
 
+            // Validar dados antes de salvar
+            if (!productData.title || !productData.price || productData.price <= 0) {
+                showMessage('⚠️ Preencha todos os campos obrigatórios corretamente', 'error');
+                return;
+            }
+            
             // Salvar produto
             userProducts.push(productData);
             localStorage.setItem('bytemarket_user_products', JSON.stringify(userProducts));

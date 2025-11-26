@@ -412,8 +412,16 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
             console.log(`📦 Pagamento recebido: ${paymentId} - Status: ${paymentData.status}`);
 
             if (paymentData.status === 'approved') {
+                // Verificar se external_reference existe
+                if (!externalRef) {
+                    console.error('❌ External reference não encontrado');
+                    return res.sendStatus(200);
+                }
+                
                 // Pagamento aprovado - ativar plano
-                const [userId, planType] = externalRef.split('_');
+                const refParts = externalRef.split('_');
+                const userId = refParts[0];
+                const planType = refParts[1];
                 
                 if (planType === 'pro' || planType === 'premium') {
                     const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
@@ -434,6 +442,12 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                     };
                     
                     const plan = planDetails[planType];
+                    
+                    // Verificar se payer.email existe
+                    if (!paymentData.payer || !paymentData.payer.email) {
+                        console.error('❌ Email do pagador não encontrado');
+                        return res.sendStatus(200);
+                    }
                     const html = emailTemplates.planActivated(
                         paymentData.payer.email.split('@')[0], // Nome do email
                         plan.name,
@@ -466,9 +480,14 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                     
                     // Enviar email para o comprador
                     const downloadLink = `https://bytemarketapp.netlify.app/downloads.html`;
+                    
+                    // Buscar título do produto do description ou usar genérico
+                    const productTitle = paymentData.description || 'Produto Digital';
+                    const buyerName = paymentData.payer.email.split('@')[0];
+                    
                     const html = emailTemplates.purchaseConfirmed(
-                        paymentData.payer.email.split('@')[0], // Nome do email
-                        'Produto Digital', // TODO: Buscar título real do produto
+                        buyerName,
+                        productTitle,
                         paymentData.transaction_amount,
                         productId,
                         downloadLink
@@ -480,7 +499,9 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                         html
                     );
                     
-                    // TODO: Enviar email para o vendedor notificando a venda
+                    // Enviar email para o vendedor (buscar do localStorage ou database)
+                    // Por enquanto, apenas logamos - em produção, buscar seller_email do produto
+                    console.log(`💰 Notificar vendedor sobre venda de produto ${productId}`);
                 }
             }
         }
