@@ -306,7 +306,7 @@
     </script>
     <script>
         // Atualizar botões de assinatura
-        document.querySelectorAll('.plan-card').forEach((card, index) => {
+        document.querySelectorAll('.pricing-card').forEach((card, index) => {
             const planIds = ['free', 'pro', 'premium'];
             const planId = planIds[index];
             const btn = card.querySelector('.btn-primary');
@@ -350,7 +350,7 @@
             const currentIndex = planIds.indexOf(currentPlan.id);
             
             if (currentIndex !== -1) {
-                const cards = document.querySelectorAll('.plan-card');
+                const cards = document.querySelectorAll('.pricing-card');
                 if (cards[currentIndex]) {
                     cards[currentIndex].style.border = '3px solid #10b981';
                     const badge = document.createElement('div');
