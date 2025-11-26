@@ -22,7 +22,7 @@ class PlanSystem {
             pro: {
                 id: 'pro',
                 name: 'Pro',
-                price: 29.90,
+                price: 99.00,
                 fee: 10, // Taxa de 10%
                 features: {
                     listProducts: true,
@@ -37,7 +37,7 @@ class PlanSystem {
             premium: {
                 id: 'premium',
                 name: 'Premium',
-                price: 29.90,
+                price: 49.00,
                 fee: 5, // Taxa de 5%
                 features: {
                     listProducts: true,
