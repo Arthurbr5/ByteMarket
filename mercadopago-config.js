@@ -25,12 +25,12 @@ class MercadoPagoIntegration {
         const plans = {
             pro: {
                 title: 'ByteMarket - Plano PRO',
-                price: 99.00,
+                price: 49.90,
                 description: 'Acesso ao plano PRO (Taxa 10%, 50 produtos)'
             },
             premium: {
                 title: 'ByteMarket - Plano PREMIUM',
-                price: 49.00,
+                price: 99.00,
                 description: 'Acesso ao plano PREMIUM (Taxa 5%, produtos ilimitados)'
             }
         };

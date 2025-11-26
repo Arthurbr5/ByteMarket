@@ -296,8 +296,8 @@ app.post('/api/mercadopago/create-preference', async (req, res) => {
         const { planType, userId, userEmail } = req.body;
 
         const plans = {
-            pro: { title: 'ByteMarket - Plano PRO', price: 99.00 },
-            premium: { title: 'ByteMarket - Plano PREMIUM', price: 49.00 }
+            pro: { title: 'ByteMarket - Plano PRO', price: 49.90 },
+            premium: { title: 'ByteMarket - Plano PREMIUM', price: 99.00 }
         };
 
         const plan = plans[planType];
