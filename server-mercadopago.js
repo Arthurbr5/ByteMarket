@@ -45,6 +45,10 @@ app.post('/api/mercadopago/create-preference', async (req, res) => {
                         quantity: 1,
                     }
                 ],
+                payment_methods: {
+                    excluded_payment_types: [],
+                    installments: 12
+                },
                 back_urls: {
                     success: `https://bytemarketapp.netlify.app/painel.html?status=approved`,
                     failure: `https://bytemarketapp.netlify.app/planos.html?status=rejected`,
@@ -93,6 +97,10 @@ app.post('/api/mercadopago/create-payment', async (req, res) => {
                         quantity: 1,
                     }
                 ],
+                payment_methods: {
+                    excluded_payment_types: [],
+                    installments: 12
+                },
                 back_urls: {
                     success: `https://bytemarketapp.netlify.app/downloads.html?status=approved&product=${productId}`,
                     failure: `https://bytemarketapp.netlify.app/produto.html?id=${productId}&status=rejected`,
