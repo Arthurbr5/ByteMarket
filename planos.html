@@ -233,8 +233,77 @@
     <script src="auth-simple.js?v=2"></script>
     <script src="app.js?v=2"></script>
     <script src="plans.js?v=2"></script>
-    <script src="mercadopago-config.js?v=2"></script>
     <script src="script.js?v=2"></script>
+    
+    <!-- Mercado Pago Integration (Inline) -->
+    <script>
+        // Mercado Pago - Configuração Frontend
+        class MercadoPagoIntegration {
+            constructor() {
+                this.publicKey = 'APP_USR-48c776d7-e25f-4ca6-abe7-5b6909e58bb9';
+                this.mp = null;
+                this.init();
+            }
+
+            init() {
+                if (!document.getElementById('mercadopago-sdk')) {
+                    const script = document.createElement('script');
+                    script.id = 'mercadopago-sdk';
+                    script.src = 'https://sdk.mercadopago.com/js/v2';
+                    script.onload = () => {
+                        this.mp = new MercadoPago(this.publicKey);
+                        console.log('✅ Mercado Pago SDK carregado');
+                    };
+                    document.head.appendChild(script);
+                }
+            }
+
+            async createSubscription(planType) {
+                const plans = {
+                    pro: { title: 'ByteMarket - Plano PRO', price: 29.90 },
+                    premium: { title: 'ByteMarket - Plano PREMIUM', price: 79.90 }
+                };
+
+                const plan = plans[planType];
+                if (!plan) throw new Error('Plano inválido');
+
+                try {
+                    const response = await fetch('https://bytemarket-a4t8.onrender.com/api/mercadopago/create-preference', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            planType: planType,
+                            userId: this.getCurrentUserId(),
+                            userEmail: this.getCurrentUserEmail()
+                        })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        window.location.href = data.init_point;
+                    } else {
+                        throw new Error(data.error || 'Erro ao criar pagamento');
+                    }
+                } catch (error) {
+                    console.error('Erro ao criar assinatura:', error);
+                    alert('Erro ao processar pagamento. Tente novamente.');
+                }
+            }
+
+            getCurrentUserId() {
+                const user = JSON.parse(localStorage.getItem('bytemarket_user') || '{}');
+                return user.id || null;
+            }
+
+            getCurrentUserEmail() {
+                const user = JSON.parse(localStorage.getItem('bytemarket_user') || '{}');
+                return user.email || null;
+            }
+        }
+
+        const mercadoPagoIntegration = new MercadoPagoIntegration();
+    </script>
     <script>
         // Atualizar botões de assinatura
         document.querySelectorAll('.plan-card').forEach((card, index) => {
