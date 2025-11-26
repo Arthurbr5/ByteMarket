@@ -1,12 +1,45 @@
-// Backend Node.js - API Mercado Pago
+// Backend Node.js - API Mercado Pago + Upload de Arquivos
 const express = require('express');
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static('.')); // Serve arquivos estáticos
+
+// Configurar pasta de uploads
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Configurar Multer para upload de arquivos
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        const uniqueId = uuidv4();
+        const ext = path.extname(file.originalname);
+        cb(null, `${uniqueId}${ext}`);
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 100 * 1024 * 1024, // 100MB max
+    },
+    fileFilter: (req, file, cb) => {
+        // Aceita qualquer tipo de arquivo para produtos digitais
+        cb(null, true);
+    }
+});
 
 // Configuração Mercado Pago (SDK v2)
 const client = new MercadoPagoConfig({ 
@@ -16,8 +49,157 @@ const client = new MercadoPagoConfig({
 // Database simulado (use PostgreSQL/MongoDB em produção)
 const payments = new Map();
 const userPlans = new Map();
+const productFiles = new Map(); // Armazena metadata dos arquivos
+const userPurchases = new Map(); // Rastreia compras dos usuários
 
 // ==================== ROTAS ====================
+
+// ==================== UPLOAD DE ARQUIVOS ====================
+
+// Upload de arquivos de produto
+app.post('/api/upload/product-files', upload.array('files', 10), (req, res) => {
+    try {
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ success: false, error: 'Nenhum arquivo enviado' });
+        }
+
+        const { productId, userId } = req.body;
+        
+        if (!productId || !userId) {
+            return res.status(400).json({ success: false, error: 'productId e userId são obrigatórios' });
+        }
+
+        const uploadedFiles = req.files.map(file => ({
+            id: path.parse(file.filename).name,
+            filename: file.originalname,
+            storedName: file.filename,
+            size: file.size,
+            mimetype: file.mimetype,
+            uploadedAt: new Date(),
+            productId: productId,
+            userId: userId
+        }));
+
+        // Armazena metadata dos arquivos
+        uploadedFiles.forEach(file => {
+            productFiles.set(file.id, file);
+        });
+
+        console.log(`📁 ${uploadedFiles.length} arquivo(s) enviado(s) para produto ${productId}`);
+
+        res.json({
+            success: true,
+            files: uploadedFiles.map(f => ({
+                id: f.id,
+                filename: f.filename,
+                size: f.size
+            }))
+        });
+    } catch (error) {
+        console.error('Erro no upload:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Upload de imagens de produto
+app.post('/api/upload/product-images', upload.array('images', 5), (req, res) => {
+    try {
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ success: false, error: 'Nenhuma imagem enviada' });
+        }
+
+        const uploadedImages = req.files.map(file => ({
+            id: path.parse(file.filename).name,
+            filename: file.originalname,
+            url: `/api/image/${path.parse(file.filename).name}`,
+            size: file.size
+        }));
+
+        res.json({
+            success: true,
+            images: uploadedImages
+        });
+    } catch (error) {
+        console.error('Erro no upload de imagens:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// Servir imagem pública (sem autenticação)
+app.get('/api/image/:fileId', (req, res) => {
+    try {
+        const { fileId } = req.params;
+        const files = fs.readdirSync(uploadDir);
+        const file = files.find(f => f.startsWith(fileId));
+        
+        if (!file) {
+            return res.status(404).send('Imagem não encontrada');
+        }
+
+        const filePath = path.join(uploadDir, file);
+        res.sendFile(filePath);
+    } catch (error) {
+        res.status(500).send('Erro ao carregar imagem');
+    }
+});
+
+// Download de arquivo (protegido - apenas compradores)
+app.get('/api/download/:fileId', (req, res) => {
+    try {
+        const { fileId } = req.params;
+        const { userId } = req.query;
+        
+        const fileMetadata = productFiles.get(fileId);
+        
+        if (!fileMetadata) {
+            return res.status(404).json({ error: 'Arquivo não encontrado' });
+        }
+
+        // Verificar se usuário tem permissão (é o vendedor ou comprou o produto)
+        const isOwner = fileMetadata.userId === userId;
+        const hasPurchased = userPurchases.has(`${userId}_${fileMetadata.productId}`);
+        
+        if (!isOwner && !hasPurchased) {
+            return res.status(403).json({ error: 'Você não tem permissão para baixar este arquivo' });
+        }
+
+        const filePath = path.join(uploadDir, fileMetadata.storedName);
+        
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({ error: 'Arquivo não encontrado no servidor' });
+        }
+
+        console.log(`📥 Download: ${fileMetadata.filename} por usuário ${userId}`);
+        
+        res.download(filePath, fileMetadata.filename);
+    } catch (error) {
+        console.error('Erro no download:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Listar arquivos de um produto
+app.get('/api/product/:productId/files', (req, res) => {
+    try {
+        const { productId } = req.params;
+        const { userId } = req.query;
+        
+        const files = Array.from(productFiles.values())
+            .filter(f => f.productId === productId)
+            .map(f => ({
+                id: f.id,
+                filename: f.filename,
+                size: f.size,
+                canDownload: f.userId === userId || userPurchases.has(`${userId}_${productId}`)
+            }));
+        
+        res.json({ files });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// ==================== ROTAS MERCADO PAGO ====================
 
 // Criar preferência de pagamento para plano
 app.post('/api/mercadopago/create-preference', async (req, res) => {
@@ -157,9 +339,22 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                     // TODO: Enviar email de confirmação
                 } else if (externalRef.includes('product_')) {
                     // Compra de produto - liberar download
-                    console.log(`✅ Produto comprado: ${externalRef}`);
+                    // Format: product_{productId}_{buyerId}_{timestamp}
+                    const parts = externalRef.split('_');
+                    const productId = parts[1];
+                    const buyerId = parts[2];
                     
-                    // TODO: Registrar compra e liberar download
+                    // Registrar compra
+                    userPurchases.set(`${buyerId}_${productId}`, {
+                        productId,
+                        buyerId,
+                        purchasedAt: new Date(),
+                        paymentId
+                    });
+                    
+                    console.log(`✅ Produto ${productId} comprado por usuário ${buyerId} - Download liberado`);
+                    
+                    // TODO: Enviar email com link de download
                 }
             }
         }

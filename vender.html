@@ -213,15 +213,217 @@
     <script src="plans.js"></script>
     <script src="script.js"></script>
     <script>
+        // Backend URL
+        const BACKEND_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000' 
+            : 'https://bytemarket-a4t8.onrender.com';
+
         // Verificar login
         if (!app.isLoggedIn()) {
             showMessage('Faça login para vender produtos', 'error');
             setTimeout(() => window.location.href = 'login.html', 1500);
         }
 
+        // Estado do upload
+        const uploadState = {
+            productImages: [],
+            productFiles: []
+        };
+
+        // ==================== UPLOAD DE IMAGENS ====================
+        
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const productImagesInput = document.getElementById('productImages');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageUploadArea.addEventListener('click', () => {
+            productImagesInput.click();
+        });
+
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.style.borderColor = '#3b82f6';
+        });
+
+        imageUploadArea.addEventListener('dragleave', () => {
+            imageUploadArea.style.borderColor = '#e5e7eb';
+        });
+
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.style.borderColor = '#e5e7eb';
+            handleImageFiles(e.dataTransfer.files);
+        });
+
+        productImagesInput.addEventListener('change', (e) => {
+            handleImageFiles(e.target.files);
+        });
+
+        async function handleImageFiles(files) {
+            const validImages = Array.from(files).filter(file => {
+                if (!file.type.startsWith('image/')) {
+                    showMessage(`${file.name} não é uma imagem válida`, 'error');
+                    return false;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    showMessage(`${file.name} excede 5MB`, 'error');
+                    return false;
+                }
+                return true;
+            });
+
+            if (validImages.length === 0) return;
+
+            // Mostrar loading
+            showMessage('📤 Enviando imagens...', 'info');
+
+            const formData = new FormData();
+            validImages.forEach(file => formData.append('images', file));
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/upload/product-images`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    uploadState.productImages.push(...result.images);
+                    renderImagePreviews();
+                    showMessage(`✅ ${validImages.length} imagem(ns) enviada(s)`, 'success');
+                } else {
+                    showMessage('❌ Erro ao enviar imagens: ' + result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro no upload:', error);
+                showMessage('❌ Erro ao enviar imagens', 'error');
+            }
+        }
+
+        function renderImagePreviews() {
+            imagePreview.innerHTML = uploadState.productImages.map((img, index) => `
+                <div class="preview-item" style="position: relative; display: inline-block; margin: 0.5rem;">
+                    <img src="${BACKEND_URL}${img.url}" alt="${img.filename}" 
+                         style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #e5e7eb;">
+                    <button type="button" onclick="removeImage(${index})" 
+                            style="position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;">×</button>
+                    <p style="margin: 0.25rem 0 0 0; font-size: 11px; color: #6b7280; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${img.filename}</p>
+                </div>
+            `).join('');
+        }
+
+        window.removeImage = function(index) {
+            uploadState.productImages.splice(index, 1);
+            renderImagePreviews();
+            showMessage('Imagem removida', 'info');
+        };
+
+        // ==================== UPLOAD DE ARQUIVOS ====================
+        
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const productFilesInput = document.getElementById('productFiles');
+        const filePreview = document.getElementById('filePreview');
+
+        fileUploadArea.addEventListener('click', () => {
+            productFilesInput.click();
+        });
+
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = '#3b82f6';
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.style.borderColor = '#e5e7eb';
+        });
+
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.style.borderColor = '#e5e7eb';
+            handleProductFiles(e.dataTransfer.files);
+        });
+
+        productFilesInput.addEventListener('change', (e) => {
+            handleProductFiles(e.target.files);
+        });
+
+        async function handleProductFiles(files) {
+            const validFiles = Array.from(files).filter(file => {
+                if (file.size > 100 * 1024 * 1024) {
+                    showMessage(`${file.name} excede 100MB`, 'error');
+                    return false;
+                }
+                return true;
+            });
+
+            if (validFiles.length === 0) return;
+
+            // Gerar ID temporário para o produto
+            const tempProductId = 'temp_' + Date.now();
+            const currentUser = app.getCurrentUser();
+
+            showMessage('📤 Enviando arquivos...', 'info');
+
+            const formData = new FormData();
+            validFiles.forEach(file => formData.append('files', file));
+            formData.append('productId', tempProductId);
+            formData.append('userId', currentUser.id);
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/upload/product-files`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    uploadState.productFiles.push(...result.files);
+                    renderFilePreviews();
+                    showMessage(`✅ ${validFiles.length} arquivo(s) enviado(s)`, 'success');
+                } else {
+                    showMessage('❌ Erro ao enviar arquivos: ' + result.error, 'error');
+                }
+            } catch (error) {
+                console.error('Erro no upload:', error);
+                showMessage('❌ Erro ao enviar arquivos', 'error');
+            }
+        }
+
+        function renderFilePreviews() {
+            filePreview.innerHTML = uploadState.productFiles.map((file, index) => `
+                <div class="preview-item" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 0.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
+                        <span style="font-size: 24px;">📄</span>
+                        <div style="flex: 1; min-width: 0;">
+                            <p style="margin: 0; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${file.filename}</p>
+                            <p style="margin: 0; font-size: 12px; color: #6b7280;">${formatFileSize(file.size)}</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeFile(${index})" 
+                            style="background: #ef4444; color: white; border: none; border-radius: 6px; padding: 0.5rem 0.75rem; cursor: pointer; font-size: 12px; font-weight: 500;">Remover</button>
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadState.productFiles.splice(index, 1);
+            renderFilePreviews();
+            showMessage('Arquivo removido', 'info');
+        };
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // ==================== SUBMISSÃO DO FORMULÁRIO ====================
+        
         // Exibir informações do plano
         const currentPlan = planSystem.getCurrentPlan();
-        const form = document.querySelector('.listing-form');
+        const form = document.getElementById('sellForm');
         
         // Adicionar info de plano no topo do formulário
         const planInfo = document.createElement('div');
@@ -252,7 +454,7 @@
         form.parentElement.insertBefore(planInfo, form);
 
         // Validar ao submeter
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             // Verificar limite
@@ -260,23 +462,44 @@
                 return;
             }
 
+            // Verificar se tem arquivos (obrigatório para produtos digitais)
+            const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
+            if (deliveryType === 'digital' && uploadState.productFiles.length === 0) {
+                showMessage('⚠️ Adicione pelo menos um arquivo para produtos digitais', 'error');
+                return;
+            }
+
             // Coletar dados do formulário
-            const formData = new FormData(form);
-            const product = {
+            const productData = {
                 id: 'prod-' + Date.now(),
-                name: formData.get('productName'),
-                category: formData.get('productCategory'),
-                price: parseFloat(formData.get('productPrice')),
-                description: formData.get('productDescription'),
+                type: document.getElementById('productType').value,
+                title: document.getElementById('productTitle').value,
+                description: document.getElementById('productDescription').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                category: document.getElementById('productCategory').value,
+                tags: document.getElementById('productTags').value,
+                demo: document.getElementById('productDemo').value,
+                deliveryType: deliveryType,
+                deliveryTime: document.getElementById('deliveryTime').value,
+                includesSupport: document.getElementById('includesSupport').checked,
+                includesUpdates: document.getElementById('includesUpdates').checked,
+                images: uploadState.productImages,
+                files: uploadState.productFiles,
+                seller: app.getCurrentUser().id,
                 createdAt: new Date().toISOString(),
                 status: 'active'
             };
 
-            // Adicionar aos produtos do usuário
-            userProducts.push(product);
+            // Salvar produto
+            userProducts.push(productData);
             localStorage.setItem('bytemarket_user_products', JSON.stringify(userProducts));
 
-            showMessage('Produto cadastrado com sucesso! 🎉');
+            // Também salvar no catálogo global
+            const allProducts = JSON.parse(localStorage.getItem('bytemarket_products') || '[]');
+            allProducts.push(productData);
+            localStorage.setItem('bytemarket_products', JSON.stringify(allProducts));
+
+            showMessage('🎉 Produto publicado com sucesso!', 'success');
             
             setTimeout(() => {
                 window.location.href = 'painel.html';

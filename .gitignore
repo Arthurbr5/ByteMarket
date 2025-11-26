@@ -10,6 +10,12 @@ package-lock.json
 .env.local
 .env.production
 
+# Uploads (arquivos de produtos)
+uploads/
+*.zip
+*.rar
+*.7z
+
 # Sistema
 .DS_Store
 Thumbs.db

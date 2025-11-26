@@ -310,19 +310,218 @@
     <script src="script.js"></script>
     <script src="auth-simple.js"></script>
     <script src="app.js"></script>
+    <script src="plans.js"></script>
     <script>
+        // Backend URL
+        const BACKEND_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000' 
+            : 'https://bytemarket-a4t8.onrender.com';
+
+        // Verificar login
+        if (!app.isLoggedIn()) {
+            showMessage('Faça login para acessar seus downloads', 'error');
+            setTimeout(() => window.location.href = 'login.html', 1500);
+        }
+
+        const currentUser = app.getCurrentUser();
+
+        // Carregar produtos comprados
+        function loadPurchasedProducts() {
+            const allProducts = JSON.parse(localStorage.getItem('bytemarket_products') || '[]');
+            const userProducts = JSON.parse(localStorage.getItem('bytemarket_user_products') || '[]');
+            
+            // Para demonstração: usuário vê seus próprios produtos
+            // Em produção: filtrar apenas produtos comprados via Mercado Pago
+            const purchases = userProducts.filter(p => p.seller === currentUser.id);
+            
+            const downloadsGrid = document.querySelector('.downloads-grid');
+            
+            if (purchases.length === 0) {
+                downloadsGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">📦</div>
+                        <h3 style="margin-bottom: 0.5rem;">Nenhum produto comprado ainda</h3>
+                        <p style="color: #6b7280; margin-bottom: 2rem;">Explore nosso marketplace e adquira produtos incríveis!</p>
+                        <a href="explorar.html" class="btn btn-primary">Explorar Produtos</a>
+                    </div>
+                `;
+                return;
+            }
+
+            downloadsGrid.innerHTML = purchases.map(product => `
+                <div class="download-card" data-product-id="${product.id}">
+                    <div class="download-header">
+                        <div class="download-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; height: 150px; border-radius: 12px 12px 0 0;">
+                            ${product.images && product.images.length > 0 
+                                ? `<img src="${BACKEND_URL}${product.images[0].url}" style="width: 100%; height: 100%; object-fit: cover;" alt="${product.title}">`
+                                : '📦'}
+                        </div>
+                        <div class="download-status">
+                            <span class="badge badge-success">Disponível</span>
+                        </div>
+                    </div>
+                    <div class="download-body">
+                        <h3>${product.title}</h3>
+                        <p class="download-seller">Vendedor: ${product.seller}</p>
+                        <p class="download-date">Publicado em: ${new Date(product.createdAt).toLocaleDateString('pt-BR')}</p>
+                        
+                        <div class="download-info">
+                            <div class="info-item">
+                                <span>📦</span>
+                                <span>Arquivos: ${product.files ? product.files.length : 0}</span>
+                            </div>
+                            <div class="info-item">
+                                <span>💰</span>
+                                <span>R$ ${product.price.toFixed(2)}</span>
+                            </div>
+                            <div class="info-item">
+                                <span>📁</span>
+                                <span>${product.category}</span>
+                            </div>
+                        </div>
+
+                        <div class="download-actions">
+                            ${product.files && product.files.length > 0 
+                                ? `<button class="btn btn-primary btn-block" onclick="showDownloadOptions('${product.id}')">
+                                    ⬇️ Baixar Arquivos (${product.files.length})
+                                </button>`
+                                : `<button class="btn btn-secondary btn-block" disabled>
+                                    Sem arquivos disponíveis
+                                </button>`
+                            }
+                            <div class="secondary-actions">
+                                ${product.demo ? `<a href="${product.demo}" target="_blank" class="btn-icon" title="Demo">🔗</a>` : ''}
+                                <button class="btn-icon" onclick="viewProductDetails('${product.id}')" title="Detalhes">📖</button>
+                            </div>
+                        </div>
+
+                        ${product.includesUpdates 
+                            ? '<div class="download-updates"><p class="update-notice">✓ Atualizações gratuitas incluídas</p></div>'
+                            : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Mostrar opções de download
+        window.showDownloadOptions = function(productId) {
+            const allProducts = JSON.parse(localStorage.getItem('bytemarket_user_products') || '[]');
+            const product = allProducts.find(p => p.id === productId);
+            
+            if (!product || !product.files || product.files.length === 0) {
+                showMessage('Nenhum arquivo disponível', 'error');
+                return;
+            }
+
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 2rem;';
+            
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 16px; max-width: 600px; width: 100%; max-height: 80vh; overflow: auto; padding: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="margin: 0;">Arquivos Disponíveis</h3>
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #6b7280;">×</button>
+                    </div>
+                    <p style="color: #6b7280; margin-bottom: 1.5rem;">Selecione os arquivos que deseja baixar:</p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        ${product.files.map(file => `
+                            <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; gap: 1rem; flex: 1; min-width: 0;">
+                                    <span style="font-size: 2rem;">📄</span>
+                                    <div style="flex: 1; min-width: 0;">
+                                        <p style="margin: 0; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${file.filename}</p>
+                                        <p style="margin: 0; font-size: 12px; color: #6b7280;">${formatFileSize(file.size)}</p>
+                                    </div>
+                                </div>
+                                <button onclick="downloadFile('${file.id}', '${file.filename}')" class="btn btn-primary" style="white-space: nowrap; padding: 0.5rem 1rem;">
+                                    ⬇️ Baixar
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                        <button onclick="downloadAllFiles('${productId}')" class="btn btn-primary btn-block">
+                            📦 Baixar Todos (${product.files.length} arquivos)
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        };
+
+        // Download de arquivo individual
+        window.downloadFile = async function(fileId, filename) {
+            try {
+                showMessage('📥 Iniciando download...', 'info');
+                
+                const url = `${BACKEND_URL}/api/download/${fileId}?userId=${currentUser.id}`;
+                
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Erro ao baixar arquivo');
+                }
+                
+                const blob = await response.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(downloadUrl);
+                
+                showMessage(`✅ ${filename} baixado com sucesso!`, 'success');
+            } catch (error) {
+                console.error('Erro no download:', error);
+                showMessage(`❌ ${error.message}`, 'error');
+            }
+        };
+
+        // Download de todos os arquivos
+        window.downloadAllFiles = async function(productId) {
+            const allProducts = JSON.parse(localStorage.getItem('bytemarket_user_products') || '[]');
+            const product = allProducts.find(p => p.id === productId);
+            
+            if (!product || !product.files) return;
+            
+            showMessage(`📦 Baixando ${product.files.length} arquivo(s)...`, 'info');
+            
+            for (const file of product.files) {
+                await downloadFile(file.id, file.filename);
+                await new Promise(resolve => setTimeout(resolve, 500)); // Delay entre downloads
+            }
+            
+            showMessage('✅ Todos os arquivos foram baixados!', 'success');
+        };
+
+        // Ver detalhes do produto
+        window.viewProductDetails = function(productId) {
+            window.location.href = `produto.html?id=${productId}`;
+        };
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
         function filterDownloads(category) {
-            // Remove active from all tabs
             document.querySelectorAll('.filter-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
             
-            // Add active to clicked tab
             event.target.classList.add('active');
             
             console.log('Filtering by:', category);
-            // Aqui você implementaria a lógica real de filtro
+            // Implementar filtro real conforme necessário
         }
+
+        // Carregar produtos ao iniciar
+        loadPurchasedProducts();
     </script>
 </body>
 </html>
