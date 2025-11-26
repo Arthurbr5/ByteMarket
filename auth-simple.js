@@ -87,7 +87,29 @@ class SimpleAuth {
         };
 
         localStorage.setItem(this.storageKey, JSON.stringify(user));
+        
+        // Enviar email de boas-vindas
+        this.sendWelcomeEmail(name, email);
+        
         return { success: true, user };
+    }
+
+    // Enviar email de boas-vindas (assíncrono, não bloqueia o registro)
+    async sendWelcomeEmail(name, email) {
+        try {
+            const BACKEND_URL = window.location.hostname === 'localhost' 
+                ? 'http://localhost:3000' 
+                : 'https://bytemarket-a4t8.onrender.com';
+                
+            await fetch(`${BACKEND_URL}/api/email/welcome`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email })
+            });
+        } catch (error) {
+            // Não mostrar erro para o usuário, apenas logar
+            console.log('Email de boas-vindas será enviado em breve');
+        }
     }
 
     // Logout

@@ -1,4 +1,4 @@
-// Backend Node.js - API Mercado Pago + Upload de Arquivos
+// Backend Node.js - API Mercado Pago + Upload de Arquivos + Email
 const express = require('express');
 const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
 const cors = require('cors');
@@ -6,11 +6,17 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const { Resend } = require('resend');
+const emailTemplates = require('./email-templates');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static('.')); // Serve arquivos estáticos
+
+// Configurar Resend
+const resend = new Resend(process.env.RESEND_API_KEY || 'YOUR_API_KEY');
+const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
 // Configurar pasta de uploads
 const uploadDir = path.join(__dirname, 'uploads');
@@ -201,6 +207,89 @@ app.get('/api/product/:productId/files', (req, res) => {
 
 // ==================== ROTAS MERCADO PAGO ====================
 
+// ==================== SERVIÇO DE EMAIL ====================
+
+async function sendEmail(to, subject, html) {
+    try {
+        const result = await resend.emails.send({
+            from: FROM_EMAIL,
+            to: to,
+            subject: subject,
+            html: html
+        });
+        console.log(`📧 Email enviado para ${to}: ${subject}`);
+        return { success: true, id: result.id };
+    } catch (error) {
+        console.error(`❌ Erro ao enviar email para ${to}:`, error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Endpoints de email para testes
+app.post('/api/email/welcome', async (req, res) => {
+    try {
+        const { email, name } = req.body;
+        const html = emailTemplates.welcome(name, email);
+        const result = await sendEmail(email, '🎉 Bem-vindo ao ByteMarket!', html);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+app.post('/api/email/test', async (req, res) => {
+    try {
+        const { email, type, data } = req.body;
+        
+        let html, subject;
+        
+        switch(type) {
+            case 'welcome':
+                html = emailTemplates.welcome(data.name, email);
+                subject = '🎉 Bem-vindo ao ByteMarket!';
+                break;
+            case 'purchase':
+                html = emailTemplates.purchaseConfirmed(
+                    data.buyerName,
+                    data.productTitle,
+                    data.productPrice,
+                    data.productId,
+                    data.downloadLink
+                );
+                subject = '✅ Compra Confirmada - ByteMarket';
+                break;
+            case 'sale':
+                html = emailTemplates.saleNotification(
+                    data.sellerName,
+                    data.buyerName,
+                    data.productTitle,
+                    data.productPrice,
+                    data.earnings
+                );
+                subject = '💰 Nova Venda Realizada!';
+                break;
+            case 'plan':
+                html = emailTemplates.planActivated(
+                    data.userName,
+                    data.planName,
+                    data.planFee,
+                    data.expiresAt
+                );
+                subject = '🚀 Plano Ativado com Sucesso!';
+                break;
+            default:
+                return res.status(400).json({ success: false, error: 'Tipo de email inválido' });
+        }
+        
+        const result = await sendEmail(email, subject, html);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+// ==================== ROTAS MERCADO PAGO ====================
+
 // Criar preferência de pagamento para plano
 app.post('/api/mercadopago/create-preference', async (req, res) => {
     try {
@@ -327,16 +416,37 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                 const [userId, planType] = externalRef.split('_');
                 
                 if (planType === 'pro' || planType === 'premium') {
+                    const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+                    
                     // Ativa plano do usuário
                     userPlans.set(userId, {
                         plan: planType,
                         activatedAt: new Date(),
-                        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 dias
+                        expiresAt: expiresAt
                     });
                     
                     console.log(`✅ Plano ${planType} ativado para usuário ${userId}`);
                     
-                    // TODO: Enviar email de confirmação
+                    // Enviar email de confirmação do plano
+                    const planDetails = {
+                        pro: { name: 'PRO', fee: 10 },
+                        premium: { name: 'PREMIUM', fee: 5 }
+                    };
+                    
+                    const plan = planDetails[planType];
+                    const html = emailTemplates.planActivated(
+                        paymentData.payer.email.split('@')[0], // Nome do email
+                        plan.name,
+                        plan.fee,
+                        expiresAt
+                    );
+                    
+                    sendEmail(
+                        paymentData.payer.email,
+                        '🚀 Plano Ativado com Sucesso!',
+                        html
+                    );
+                    
                 } else if (externalRef.includes('product_')) {
                     // Compra de produto - liberar download
                     // Format: product_{productId}_{buyerId}_{timestamp}
@@ -354,7 +464,23 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                     
                     console.log(`✅ Produto ${productId} comprado por usuário ${buyerId} - Download liberado`);
                     
-                    // TODO: Enviar email com link de download
+                    // Enviar email para o comprador
+                    const downloadLink = `https://bytemarketapp.netlify.app/downloads.html`;
+                    const html = emailTemplates.purchaseConfirmed(
+                        paymentData.payer.email.split('@')[0], // Nome do email
+                        'Produto Digital', // TODO: Buscar título real do produto
+                        paymentData.transaction_amount,
+                        productId,
+                        downloadLink
+                    );
+                    
+                    sendEmail(
+                        paymentData.payer.email,
+                        '✅ Compra Confirmada - ByteMarket',
+                        html
+                    );
+                    
+                    // TODO: Enviar email para o vendedor notificando a venda
                 }
             }
         }
