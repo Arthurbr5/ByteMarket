@@ -37,7 +37,7 @@ class PlanSystem {
             premium: {
                 id: 'premium',
                 name: 'Premium',
-                price: 79.90,
+                price: 29.90,
                 fee: 5, // Taxa de 5%
                 features: {
                     listProducts: true,

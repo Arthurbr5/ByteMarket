@@ -30,7 +30,7 @@ class MercadoPagoIntegration {
             },
             premium: {
                 title: 'ByteMarket - Plano PREMIUM',
-                price: 79.90,
+                price: 29.90,
                 description: 'Acesso ao plano PREMIUM (Taxa 5%, produtos ilimitados)'
             }
         };
